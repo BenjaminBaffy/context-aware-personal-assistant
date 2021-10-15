@@ -61,7 +61,7 @@ const DemoComponent = () => {
 
             <Topic
                 title="Folder structure"
-                >
+            >
                 <pre>components/ - common, general, reusable components </pre>
                 <pre>features/ - MOST IMPORTANT. The features of the application, these will contain the slices (i.e. login/, admin/, payment/, etc.)</pre>
                 <Link to="https://reactjs.org/docs/hooks-intro.html"><pre>hooks/ - reusable hook definitions, side-effect logics, function extractions (link)</pre></Link>
