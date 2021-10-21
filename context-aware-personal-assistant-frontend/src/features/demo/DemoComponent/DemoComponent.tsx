@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import ApiService from '../../../services/api/ApiService'
+import DemoService from '../../../services/api/DemoService'
 import { RootState } from '../../../store/store'
 import { setDemoStateField } from '../demoSlice'
 
@@ -57,6 +59,18 @@ const DemoComponent = () => {
         e.preventDefault() // prevent page reloading
         dispatch(setDemoStateField(inputValue))
     }
+
+    useEffect(() => {
+        (async () => {
+            // # If you use whole url: https:// ... -> it'll call it perfectly
+            // const resp = await ApiService.get('https://yesno.wtf/api')
+            // # If only a route is provided, then it'll prefix it with process.env.REACT_APP_BACKEND_URL
+            // const resp = await ApiService.get('ca-pa/listen') // don't use like this, write Service files, as seen under src/services/api/
+
+            // const demoResp = await DemoService.getDemoStuff(10)
+            // console.log(demoResp);
+        })()
+    }, [])
 
     return (
         <div className={styles.demoStyle}>
