@@ -1,11 +1,11 @@
-import DemoComponent from './features/demo/DemoComponent/DemoComponent';
+import Routes from './routes/Routes';
 
-// TODO Add Routes
+// TODO add isLoggedIn || accessToken
 
 function App() {
-  return (
-    <DemoComponent />
-  );
+    return (
+        <Routes />
+    );
 }
 
 export default App;

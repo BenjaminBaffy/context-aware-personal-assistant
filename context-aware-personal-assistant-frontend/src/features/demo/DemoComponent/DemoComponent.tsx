@@ -18,6 +18,7 @@ const Link = ({ to, children }: LinkProps) => <a className={styles.link} href={t
 // ---
 
 
+
 // SHOULD BE OUTSOURCED
 
 interface TopicProps {
@@ -38,6 +39,7 @@ const Topic = ({ title, description, linkTo, children }: TopicProps) => (
 )
 
 // ---
+
 
 
 const DemoComponent = () => {
