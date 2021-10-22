@@ -1,5 +1,5 @@
 {
-  "name": "context-aware-personal-assistant-frontend",
+  "name": "ca-pa-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
