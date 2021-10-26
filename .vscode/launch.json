@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             // "preLaunchTask": "build",
-            "program": "${workspaceFolder}/backend/Assitant-WebService/Assistant.API/bin/Debug/net5.0/Assistant.API.dll",
+            "program": "${workspaceFolder}/backend/Assistant-WebService/Assistant.API/bin/Debug/net5.0/Assistant.API.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/backend/Assitant-WebService/Assistant.API/",
+            "cwd": "${workspaceFolder}/backend/Assistant-WebService/Assistant.API/",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",

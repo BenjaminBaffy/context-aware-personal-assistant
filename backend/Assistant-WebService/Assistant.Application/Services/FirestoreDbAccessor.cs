@@ -1,5 +1,7 @@
+using System.IO;
 using Assistant.Domain.Configuration;
 using Google.Cloud.Firestore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
 namespace Assistant.Application.Services
@@ -9,10 +11,14 @@ namespace Assistant.Application.Services
         private FirestoreDb instance;
         private static readonly object lockObject = new object();
         private readonly ApplicationConfiguration _applicationConfiguration;
+        private readonly IHostEnvironment _hostEnvironment;
 
-        public FirestoreDbAccessor(IOptions<ApplicationConfiguration> applicationConfiguration)
+        public FirestoreDbAccessor(
+            IOptions<ApplicationConfiguration> applicationConfiguration,
+            IHostEnvironment hostEnvironment)
         {
             _applicationConfiguration = applicationConfiguration.Value;
+            _hostEnvironment = hostEnvironment;
         }
 
         // TODO: proper singleton
@@ -28,7 +34,7 @@ namespace Assistant.Application.Services
                         var builder = new FirestoreDbBuilder
                         {
                             ProjectId = _applicationConfiguration.ProjectId,
-                            CredentialsPath = _applicationConfiguration.CredentialsPath,
+                            CredentialsPath = Path.Combine(_hostEnvironment.ContentRootPath, _applicationConfiguration.CredentialsPath)
                         };
 
                         instance = builder.Build();

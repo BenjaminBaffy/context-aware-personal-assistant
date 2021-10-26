@@ -45,6 +45,8 @@ TODO
 
 ## TODO (notes not to be forgotten)
 
-Secure credentials more
-Set up unit test project
+More secure credentials
+Set up unit test project properly
 Finish Database Service
+
+Start to create real DB model

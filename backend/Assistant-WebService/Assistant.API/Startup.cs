@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Assistant.Application.Interfaces;
 using Assistant.Application.Services;
 using Assistant.Domain.Configuration;
 using Microsoft.AspNetCore.Builder;
@@ -42,6 +43,7 @@ namespace Assistant.API
             // });
 
             services.AddSingleton<FirestoreDbAccessor>();
+            services.AddScoped(typeof(IDatabaseService<>), typeof(DatabaseService<>));
 
             services.AddOptions();
 

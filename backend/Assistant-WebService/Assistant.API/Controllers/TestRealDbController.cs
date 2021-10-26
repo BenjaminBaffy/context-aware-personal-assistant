@@ -9,9 +9,9 @@ namespace Assistant.API.Controllers
     [Route("api/test-realdb")]
     public class TestRealDbController : Controller
     {
-        private readonly DatabaseService<TestData> _testDataDatabaseService;
+        private readonly IDatabaseService<TestData> _testDataDatabaseService;
 
-        public TestRealDbController(DatabaseService<TestData> testDataDatabaseService)
+        public TestRealDbController(IDatabaseService<TestData> testDataDatabaseService)
         {
             _testDataDatabaseService = testDataDatabaseService;
         }
