@@ -6,3 +6,5 @@ docker run \
   --env "PORT=8080" \
   --publish 8080:8080 \
   mtlynch/firestore-emulator-docker
+
+# You can emulate database

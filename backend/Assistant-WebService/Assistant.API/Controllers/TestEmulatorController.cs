@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Assistant.API.Configuration;
+using Assistant.Domain.Configuration;
 using Google.Api.Gax;
-using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Firestore;
 using Grpc.Core;
 using Microsoft.AspNetCore.Mvc;
@@ -14,15 +12,15 @@ using Microsoft.Extensions.Options;
 namespace Assistant.API.Controllers
 {
     [ApiController]
-    [Route("test")]
-    public class TestController : Controller
+    [Route("api/test-emulator")]
+    public class TestEmulatorController : Controller
     {
-        private readonly ILogger<TestController> _logger;
+        private readonly ILogger<TestEmulatorController> _logger;
         private readonly ApplicationConfiguration _applicationConfiguration;
 
-        public TestController(
-            ILogger<TestController> logger,
-            IOptions<ApplicationConfiguration> applicationConfiguration
+        public TestEmulatorController(
+            ILogger<TestEmulatorController> logger,
+            IOptionsSnapshot<ApplicationConfiguration> applicationConfiguration
         )
         {
             _logger = logger;

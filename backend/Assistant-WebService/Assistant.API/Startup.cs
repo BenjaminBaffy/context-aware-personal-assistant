@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Assistant.API.Configuration;
+using Assistant.Application.Services;
+using Assistant.Domain.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,6 +40,8 @@ namespace Assistant.API
             // {
             //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Assistant.API", Version = "v1" });
             // });
+
+            services.AddSingleton<FirestoreDbAccessor>();
 
             services.AddOptions();
 

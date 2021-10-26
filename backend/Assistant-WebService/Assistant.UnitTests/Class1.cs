@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assistant.Domain
+namespace Assistant.UnitTests
 {
     public class Class1
     {

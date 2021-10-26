@@ -6,12 +6,12 @@
     "version": "0.1"
   },
   "paths": {
-    "/test": {
+    "/api/test-emulator": {
       "get": {
         "tags": [
-          "Test"
+          "TestEmulator"
         ],
-        "operationId": "Test_Get",
+        "operationId": "TestEmulator_Get",
         "responses": {
           "200": {
             "description": "",
@@ -28,9 +28,71 @@
       },
       "post": {
         "tags": [
-          "Test"
+          "TestEmulator"
         ],
-        "operationId": "Test_Post",
+        "operationId": "TestEmulator_Post",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/test-realdb": {
+      "post": {
+        "tags": [
+          "TestRealDb"
+        ],
+        "operationId": "TestRealDb_Post",
+        "parameters": [
+          {
+            "name": "firstName",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "lastName",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/test-realdb/collection": {
+      "get": {
+        "tags": [
+          "TestRealDb"
+        ],
+        "operationId": "TestRealDb_GetAll",
         "responses": {
           "200": {
             "description": "",
