@@ -18,7 +18,7 @@ NOTE: .NET 5.0 is the continuation of the .NET Core project (3.1 is the latest o
 Get to the main directory.
 Run `dotnet restore` (not needed every time)
 Run `dotnet build`
-Run `dotnet run -p backend/assistant_core/Assistant.API/`
+Run `dotnet run -p backend/Assistant-WebService/Assistant.API/`
 
 You'll be redirected to the Swagger page, where you can see
 
