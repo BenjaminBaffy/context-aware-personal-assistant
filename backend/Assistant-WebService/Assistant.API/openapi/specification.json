@@ -6,6 +6,59 @@
     "version": "0.1"
   },
   "paths": {
+    "/api/rasa/sendmessage": {
+      "post": {
+        "tags": [
+          "Rasa"
+        ],
+        "operationId": "Rasa_SendMessage",
+        "requestBody": {
+          "x-name": "botMessage",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BotMessageViewModel"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BotResponseViewModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/rasa/health": {
+      "get": {
+        "tags": [
+          "Rasa"
+        ],
+        "operationId": "Rasa_HealthCheck",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/test-emulator": {
       "get": {
         "tags": [
@@ -134,6 +187,34 @@
   },
   "components": {
     "schemas": {
+      "BotResponseViewModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "recipient": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "BotMessageViewModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sender": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
       "WeatherForecast": {
         "type": "object",
         "additionalProperties": false,
