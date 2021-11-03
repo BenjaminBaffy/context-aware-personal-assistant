@@ -33,8 +33,8 @@ namespace Assistant.Application.Services
                         // var credential = GoogleCredential.FromFile(_applicationConfiguration.CredentialsPath); // other way around
                         var builder = new FirestoreDbBuilder
                         {
-                            ProjectId = _applicationConfiguration.ProjectId,
-                            CredentialsPath = Path.Combine(_hostEnvironment.ContentRootPath, _applicationConfiguration.CredentialsPath)
+                            ProjectId = _applicationConfiguration.FirebaseProjectId,
+                            CredentialsPath = Path.Combine(_hostEnvironment.ContentRootPath, _applicationConfiguration.FirebaseHostedCredentialsPath)
                         };
 
                         instance = builder.Build();

@@ -31,7 +31,8 @@ namespace Assistant.API
 
             services.AddControllers();
 
-            services.AddOpenApiDocument(c => {
+            services.AddOpenApiDocument(c =>
+            {
                 c.DocumentName = "v1";
                 c.Title = "Context Aware Personal Assistant BackEnd";
                 c.Version = "0.1";
@@ -48,6 +49,20 @@ namespace Assistant.API
             services.AddOptions();
 
             services.Configure<ApplicationConfiguration>(Configuration.GetSection(nameof(ApplicationConfiguration)));
+
+            services.AddHttpClient<IRasaHttpService, RasaHttpService>(); // Adds a DI registration where a HttpClient is injected
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.SetIsOriginAllowed(o => true)
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .AllowCredentials();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +82,8 @@ namespace Assistant.API
             // app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             // app.UseAuthorization();
 
