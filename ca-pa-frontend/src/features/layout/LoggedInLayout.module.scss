@@ -12,6 +12,7 @@
     position: fixed;
     top: 0;
     width: 100%;
+    box-shadow: 0px 0px 9px 3px rgba(41,41,41,.25);
 }
 
 .menu {
@@ -19,6 +20,7 @@
     min-width: 50px;
     user-select: none;
     border-bottom: none;
+    background-color: #3e087c;
 }
 
 .logo {

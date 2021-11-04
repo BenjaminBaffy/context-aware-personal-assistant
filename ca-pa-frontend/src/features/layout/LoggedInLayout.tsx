@@ -1,10 +1,13 @@
-import style from './LoggedInLayout.module.scss'
-import { Button, Layout, Menu } from 'antd'
 import React, { useCallback } from 'react'
+import { Button, Layout, Menu } from 'antd'
+import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons'
+
 import { RootState } from '../../store/store'
 import { logout } from '../auth/authSlice'
+
+import styles from './LoggedInLayout.module.scss'
 
 const { Header, Content } = Layout;
 
@@ -14,6 +17,8 @@ interface ILayoutProps {
 
 const LoggedInLayout: React.FC<ILayoutProps> = ({ children }) => {
     const dispatch = useDispatch();
+    const location = useLocation();
+    const path = location.pathname;
     const { name } = useSelector((state: RootState) => state.auth.user)
 
     const logoutHandler = useCallback(() => {
@@ -21,9 +26,17 @@ const LoggedInLayout: React.FC<ILayoutProps> = ({ children }) => {
     }, [dispatch])
 
     return (
-        <Layout className={style.layout}>
-            <Header className={style.header}>
-                <div className={style.rightMenu}>
+        <Layout className={styles.layout}>
+            <Header className={styles.header}>
+                <Menu mode="horizontal" selectedKeys={[path]} className={styles.menu}>
+                    <Menu.Item key="/">
+                        <Link to="/">Home</Link>
+                    </Menu.Item>
+                    <Menu.Item key="/demo">
+                        <Link to="/demo">Demo</Link>
+                    </Menu.Item>
+                </Menu>
+                <div className={styles.rightMenu}>
                     <div>
                         <Button icon={<UserOutlined />} type="text">
                         {name}
@@ -36,7 +49,7 @@ const LoggedInLayout: React.FC<ILayoutProps> = ({ children }) => {
                     </div>
                 </div>
             </Header>
-            <Content className={style.content}>{children}</Content>
+            <Content className={styles.content}>{children}</Content>
         </Layout>
     )
 }
