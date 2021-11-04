@@ -11,6 +11,10 @@ const axiosInstance: AxiosInstance = axios.create({
   withCredentials: false, // maybe remove after backend integration
 });
 
+export const setAccessToken = (token: string) => {
+  axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
+}
+
 // Add a request interceptor
 axiosInstance.interceptors.request.use(
   function (config) {
