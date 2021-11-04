@@ -1,11 +1,7 @@
-import axios from 'axios'
-import qs from 'qs'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import ApiService from '../../../services/api/ApiService'
-import DemoService from '../../../services/api/DemoService'
-import { BotMessageViewModel, RasaClient } from '../../../services/api/_generated/test-generated-axios-backend-api'
 import { RootState } from '../../../store/store'
+import { rasaActions } from '../../rasa/rasaSlice'
 import { setDemoStateField } from '../demoSlice'
 
 import styles from './DemoComponent.module.scss'
@@ -50,6 +46,7 @@ const Topic = ({ title, description, linkTo, children }: TopicProps) => (
 const DemoComponent = () => {
     const dispatch = useDispatch()
     const { demoStateField } = useSelector((state: RootState) => state.demo)
+    const { response } = useSelector((state: RootState) => state.rasa)
 
     const [inputValue, setInputValue] = useState<string>('')
     const [botTextValue, setBotTextValue] = useState<string>('')
@@ -76,37 +73,13 @@ const DemoComponent = () => {
 
     const handleBotFormSubmit = (e: any) => {
         e.preventDefault()
-
-        // TODO: figure out how to reuse the axios instance
-        let axiosInstance = axios.create({
-            baseURL: process.env.REACT_APP_BACKEND_URL,
-            timeout: 30000,
-            paramsSerializer: (params) => {
-              return qs.stringify(params, { indices: false, skipNulls: true }).replaceAll('%5B', '.').replaceAll('%5D', '');
-            },
-            withCredentials: false, // maybe remove after backend integration
-          });
-
-        let client = new RasaClient(undefined, axiosInstance);
-
-        var responsePromise = client.sendMessage(new BotMessageViewModel({sender: "CAPA Frontend", message: e.target.botText.value}));
-
-        responsePromise.then( res => {
-            setBotTextAreaValue(botTextAreaValue + `Rasa: ${res.message}\n`);
-        });
+        const message = e.target.botText.value
+        dispatch(rasaActions.send(message))
     }
 
     useEffect(() => {
-        (async () => {
-            // # If you use whole url: https:// ... -> it'll call it perfectly
-            // const resp = await ApiService.get('https://yesno.wtf/api')
-            // # If only a route is provided, then it'll prefix it with process.env.REACT_APP_BACKEND_URL
-            // const resp = await ApiService.get('ca-pa/listen') // don't use like this, write Service files, as seen under src/services/api/
-
-            // const demoResp = await DemoService.getDemoStuff(10)
-            // console.log(demoResp);
-        })()
-    }, [])
+        setBotTextAreaValue(prev => prev + `Rasa: ${response}\n`);
+    }, [response])
 
     return (
         <div className={styles.demoStyle}>

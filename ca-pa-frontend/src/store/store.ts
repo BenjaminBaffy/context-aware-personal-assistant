@@ -2,12 +2,14 @@ import { configureStore, combineReducers, Action } from "@reduxjs/toolkit";
 import { ThunkAction } from 'redux-thunk';
 import authSlice from "../features/auth/authSlice";
 import demoSlice from "../features/demo/demoSlice";
+import rasaSlice from "../features/rasa/rasaSlice"
 
 // When creating new slices, no matter how nested they are, make sure to combine the reducers at places, where necessary.
 // The root level is here at rootReducer.
 const rootReducer = combineReducers({
     demo: demoSlice,
-    auth: authSlice
+    auth: authSlice,
+    rasa: rasaSlice,
 })
 
 const store = configureStore({
