@@ -37,7 +37,7 @@ namespace Assistant.API.Controllers
                 ProjectId = projectId,
                 EmulatorDetection = EmulatorDetection.EmulatorOrProduction,
                 ChannelCredentials = ChannelCredentials.Insecure,
-                Endpoint = _applicationConfiguration.FirebaseAddress
+                Endpoint = _applicationConfiguration.FirebaseLocalEndpointAddress
             }.Build();
 
             //var db2 = new FirestoreDb()
@@ -75,7 +75,7 @@ namespace Assistant.API.Controllers
                 ProjectId = projectId,
                 EmulatorDetection = EmulatorDetection.EmulatorOrProduction,
                 ChannelCredentials = ChannelCredentials.Insecure,
-                Endpoint = _applicationConfiguration.FirebaseAddress
+                Endpoint = _applicationConfiguration.FirebaseLocalEndpointAddress
             }.Build();
             _logger.LogInformation("Created Cloud Firestore client with project ID: {0}", projectId);
 

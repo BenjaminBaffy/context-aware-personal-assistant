@@ -1,7 +1,10 @@
+import axios from 'axios'
+import qs from 'qs'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import ApiService from '../../../services/api/ApiService'
 import DemoService from '../../../services/api/DemoService'
+import { BotMessageViewModel, RasaClient } from '../../../services/api/_generated/test-generated-axios-backend-api'
 import { RootState } from '../../../store/store'
 import { setDemoStateField } from '../demoSlice'
 
@@ -49,15 +52,48 @@ const DemoComponent = () => {
     const { demoStateField } = useSelector((state: RootState) => state.demo)
 
     const [inputValue, setInputValue] = useState<string>('')
+    const [botTextValue, setBotTextValue] = useState<string>('')
+    const [botTextAreaValue, setBotTextAreaValue] = useState<string>('')
 
     const handleInputChange = (e: any) => {
         const { value } = e.target
         setInputValue(value)
     }
 
+    const handleBotInputChange = (e: any) => {
+        const { value } = e.target
+        setBotTextValue(value)
+    }
+
     const handleFormSubmit = (e: any) => {
         e.preventDefault() // prevent page reloading
         dispatch(setDemoStateField(inputValue))
+    }
+
+    const handleEmptyInputChange = (e: any) => {
+        e.preventDefault();
+    }
+
+    const handleBotFormSubmit = (e: any) => {
+        e.preventDefault()
+
+        // TODO: figure out how to reuse the axios instance
+        let axiosInstance = axios.create({
+            baseURL: process.env.REACT_APP_BACKEND_URL,
+            timeout: 30000,
+            paramsSerializer: (params) => {
+              return qs.stringify(params, { indices: false, skipNulls: true }).replaceAll('%5B', '.').replaceAll('%5D', '');
+            },
+            withCredentials: false, // maybe remove after backend integration
+          });
+
+        let client = new RasaClient(undefined, axiosInstance);
+
+        var responsePromise = client.sendMessage(new BotMessageViewModel({sender: "CAPA Frontend", message: e.target.botText.value}));
+
+        responsePromise.then( res => {
+            setBotTextAreaValue(botTextAreaValue + `Rasa: ${res.message}\n`);
+        });
     }
 
     useEffect(() => {
@@ -140,6 +176,14 @@ const DemoComponent = () => {
                 <pre>ComponentName.tsx</pre>
                 <pre>ComponentName.module.scss</pre>
                 <p>When populating the <strong>features/</strong> folders, add the <strong>featureNameSlice.ts</strong> files. They're redux slices used to chop up the state of the application. <strong>Can be arbitrary deeply nested!</strong> They're a matter of reducer exporting and combining.</p>
+            </Topic>
+
+            <Topic title="Talk to The Bot">
+                <form onSubmit={handleBotFormSubmit}>
+                    <input name="botText" value={botTextValue} onChange={handleBotInputChange} />
+                    <button type="submit">Send message</button>
+                </form>
+                <textarea name="botResponses" value={botTextAreaValue} rows={20} cols={200} onChange={handleEmptyInputChange} />
             </Topic>
         </div>
     )
