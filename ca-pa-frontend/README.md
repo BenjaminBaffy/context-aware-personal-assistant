@@ -1,4 +1,27 @@
-# Getting Started with Create React App
+# Prerequisites
+
+Install `nodejs` and the `yarn` package manager.
+
+
+# Quick Start
+
+## Install packages
+
+`$ yarn install`
+
+It is the first step when running a node application ***for the first time***. It's necessary when:
+- `node_modules/` folder is missing (generally, because these are packages, they are in a separate repository and do not need to be version controlled)
+- packages have been modified (ie known in a PR)
+
+## Start application
+
+`$ yarn start`
+
+It'll start the application hosted on `https://localhost:3000/`
+
+# Auto-generate README below
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
