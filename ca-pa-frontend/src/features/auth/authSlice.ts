@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { localStorage, LocalStorageKeys } from '../../services/persistance/localStorage'
+import { localStorage, LocalStorageKey } from '../../services/persistance/localStorage'
 import { AppThunk } from '../../store/store'
 
 interface AuthState {
@@ -56,16 +56,16 @@ export const authSlice = createSlice({
     },
 });
 
-export const {
+const {
     setLoading,
     setError,
     setLoggedIn,
     loginSuccess,
     setUser,
-    resetUser
+    resetUser,
 } = authSlice.actions;
 
-export const login = (credentials: { username: string, password: string }): AppThunk => async (dispatch, getState) => {
+const login = (credentials: { username: string, password: string }): AppThunk => async (dispatch, getState) => {
     const { username, password } = credentials
 
     try {
@@ -80,7 +80,7 @@ export const login = (credentials: { username: string, password: string }): AppT
         }
 
         dispatch(setUser(response))
-        localStorage.set(LocalStorageKeys.UserDetails, response)
+        localStorage.set(LocalStorageKey.UserDetails, response)
 
         dispatch(loginSuccess())
     } catch(e: any) {
@@ -90,13 +90,13 @@ export const login = (credentials: { username: string, password: string }): AppT
     }
 }
 
-export const logout = (): AppThunk => async (dispatch, getState) => {
+const logout = (): AppThunk => async (dispatch, getState) => {
     try {
         // addtional api calls
         // ...
 
         // clear localStorage
-        localStorage.set(LocalStorageKeys.UserDetails, initialState.user)
+        localStorage.set(LocalStorageKey.UserDetails, initialState.user)
 
         dispatch(resetUser())
     } catch(e: any) {
@@ -104,6 +104,17 @@ export const logout = (): AppThunk => async (dispatch, getState) => {
     } finally {
 
     }
+}
+
+export const authActions = {
+    setLoading,
+    setError,
+    setLoggedIn,
+    loginSuccess,
+    setUser,
+    resetUser,
+    login,
+    logout,
 }
 
 export default authSlice.reducer;

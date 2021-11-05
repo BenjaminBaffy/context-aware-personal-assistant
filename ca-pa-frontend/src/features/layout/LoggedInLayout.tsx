@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons'
 
 import { RootState } from '../../store/store'
-import { logout } from '../auth/authSlice'
+import { authActions } from '../auth/authSlice'
 
 import styles from './LoggedInLayout.module.scss'
 
@@ -22,7 +22,7 @@ const LoggedInLayout: React.FC<ILayoutProps> = ({ children }) => {
     const { name } = useSelector((state: RootState) => state.auth.user)
 
     const logoutHandler = useCallback(() => {
-        dispatch(logout())
+        dispatch(authActions.logout())
     }, [dispatch])
 
     return (

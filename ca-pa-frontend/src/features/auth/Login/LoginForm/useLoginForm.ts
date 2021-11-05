@@ -1,6 +1,6 @@
 import { useCallback } from "react"
 import { useDispatch } from "react-redux"
-import { login } from "../../authSlice"
+import { authActions } from "../../authSlice"
 
 const useLoginForm = () => {
     const dispatch = useDispatch()
@@ -13,7 +13,7 @@ const useLoginForm = () => {
             password: `${password}`
         }
 
-        dispatch(login(credentials))
+        dispatch(authActions.login(credentials))
     }, [dispatch])
 
     return {

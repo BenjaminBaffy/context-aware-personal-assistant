@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../store/store'
 import { rasaActions } from '../../rasa/rasaSlice'
-import { setDemoStateField } from '../demoSlice'
+import { demoActions } from '../demoSlice'
 
 import styles from './DemoComponent.module.scss'
 
@@ -64,7 +64,7 @@ const DemoComponent = () => {
 
     const handleFormSubmit = (e: any) => {
         e.preventDefault() // prevent page reloading
-        dispatch(setDemoStateField(inputValue))
+        dispatch(demoActions.setDemoStateField(inputValue))
     }
 
     const handleEmptyInputChange = (e: any) => {

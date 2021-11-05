@@ -1,9 +1,9 @@
-export enum LocalStorageKeys {
+export enum LocalStorageKey {
     UserDetails = "ca-pa-userDetails",
 }
 
 export const localStorage = {
-    get: (key: string) => {
+    get: (key: LocalStorageKey) => {
         try {
             const item = window.localStorage.getItem(key)
             return item ? JSON.parse(item) : null
@@ -11,7 +11,7 @@ export const localStorage = {
             console.log(e)
         }
     },
-    set: (key: string, value: any) => {
+    set: (key: LocalStorageKey, value: any) => {
         try {
             window.localStorage.setItem(key, JSON.stringify(value))
         } catch(e) {
