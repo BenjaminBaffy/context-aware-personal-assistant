@@ -8,10 +8,30 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
+  - book_a_ticket
+  - buy_groceries
+  - wants_a_joke
+
+
+entities: 
+  - destination
+  - items
+  - name
+
+slots: 
+  destination:
+    type: text
+    influence_conversation: true
+  items: 
+    type: list
+  name:
+    type: any
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
+  - text: "Hey {name}! How are you?"
+  - text: "Hello {name}"
+  - text: "Hi {name}. How can I help?"
 
   utter_cheer_up:
   - text: "Here is something to cheer you up:"
@@ -19,15 +39,31 @@ responses:
 
   utter_did_that_help:
   - text: "Did that help you?"
+  - text: "Was it helpful?"
 
   utter_happy:
   - text: "Great, carry on!"
+  - text: "That's nice to hear"
+
+  utter_wants_a_joke:
+  - text: "Do you wanna hear a joke?"
+  - text: "Do you want me to tell you a joke?"
+
+  utter_tell_a_joke:
+  - text: "What is the best thing about Switzerland? I don't know but the flag is a big plus."
+  - text: "I invented a new word. Plagiarism!"
+  - text: "What is a hardware? \n A part of computer which you can actually kick"
+  - text: "Why Java programmers wear glasses? \n \n Because they don't C#"
 
   utter_goodbye:
   - text: "Bye"
+  - text: "See you"
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
+
+  utter_provide_destination:
+  - text: "Please provide the destination"
 
 session_config:
   session_expiration_time: 60

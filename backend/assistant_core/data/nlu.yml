@@ -16,6 +16,11 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
+    - Hello, my name is [Elshan](name)
+    - hi, I am [Elshan](name)
+    - hello there, my name is [Elshan](name)
+    - Hi, I am [Benny](name)
+    - Hello, my name is [Benny](name)
 
 - intent: goodbye
   examples: |
@@ -84,9 +89,35 @@ nlu:
     - so saad
     - so sad
 
+- intent: wants_a_joke
+  examples: |
+    - Yes
+    - Go on
+    - Yeah
+    - Sure
+    - I wanna hear a joke
+    - Tell me a joke
+    - yes
+    - indeed
+    - of course
+
+
 - intent: bot_challenge
   examples: |
     - are you a bot?
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+
+- intent: book_a_ticket
+  examples: |
+    - I would like to book a flight ticket to [Budapest](destination)
+    - Book me a ticket to [London](destination)
+    - I will be flying to [Berlin](destination)
+    - I need to book a ticket for [Vienne](destination)
+
+- intent: buy_groceries
+  examples: |
+    - I would like to buy [milk] (items), [cookies] (items) and [chocolate] (items)
+    - Add [flour] (items) and [eggs] (items) to my shopping list
+    - I would like to get [tomatoes] (items) and [ham](items)

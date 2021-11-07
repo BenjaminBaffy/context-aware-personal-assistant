@@ -14,17 +14,60 @@ stories:
   - intent: greet
   - action: utter_greet
   - intent: mood_unhappy
-  - action: utter_cheer_up
+  - action: utter_wants_a_joke
+  - intent: affirm
+  - action: utter_tell_a_joke
   - action: utter_did_that_help
   - intent: affirm
   - action: utter_happy
+
 
 - story: sad path 2
   steps:
   - intent: greet
   - action: utter_greet
   - intent: mood_unhappy
-  - action: utter_cheer_up
+  - action: utter_wants_a_joke
+  - intent: affirm
+  - action: utter_tell_a_joke
   - action: utter_did_that_help
   - intent: deny
   - action: utter_goodbye
+
+
+# - story: sad path 2
+#   steps:
+#   - intent: greet
+#   - action: utter_greet
+#   - intent: mood_unhappy
+#   - action: utter_cheer_up
+#   - action: utter_did_that_help
+#   - intent: affirm
+#   - action: utter_happy
+
+# - story: sad path 3
+#   steps:
+#   - intent: greet
+#   - action: utter_greet
+#   - intent: mood_unhappy
+#   - action: utter_cheer_up
+#   - action: utter_did_that_help
+#   - intent: deny
+#   - action: utter_goodbye
+
+- story: book_a_ticket_destination_provided
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: book_a_ticket
+  - slot_was_set: 
+    - destination: London
+  # - action: utter_booking
+
+
+- story: book_a_ticket_destination_provided
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: book_a_ticket
+  - action: utter_provide_destination
