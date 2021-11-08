@@ -91,15 +91,8 @@ nlu:
 
 - intent: wants_a_joke
   examples: |
-    - Yes
-    - Go on
-    - Yeah
-    - Sure
     - I wanna hear a joke
     - Tell me a joke
-    - yes
-    - indeed
-    - of course
 
 
 - intent: bot_challenge
