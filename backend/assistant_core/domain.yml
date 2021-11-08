@@ -8,10 +8,70 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
+  - capabilities
+  - book_a_ticket
+  - buy_groceries
+  - wants_a_joke
+  - weather_in_city
+
+
+entities: 
+  - destination
+  - items
+  - name
+  - city
+  - wx_type 
+  - forecast_period
+
+
+slots: 
+  destination:
+    type: text
+    influence_conversation: true
+  items: 
+    type: list
+  name:
+    type: any
+  city:
+    type: text
+    influence_conversation: true
+  forecast_period:
+    type: categorical
+    influence_conversation: true
+    values:
+    - current
+    - tomorrow
+    - today
+  requested_slot:
+    type: text
+    influence_conversation: false
+  wx_type:
+    type: categorical
+    influence_conversation: true
+    values:
+    - temperature
+    - cloud_conditions
+    - wind
+    - rain
+    - uvi
+    - pressure
+    - humid
+    - weather
+    - __other__
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
+  - text: "Hey {name}! How are you?"
+  - text: "Hello {name}"
+  - text: "Hi {name}. How can I help?"
+
+  utter_ask_city:
+  - text: In which Hungarian city?
+  - text: I know weather in Budapest, Debrecen and in Szeged, which one would you like to know?
+  - text: Which city?
+
+  utter_capabilities:
+  - text: I can tell the current weather and forecast for today or tomorrow. I have weather data for Auckland, Christchurch and Wellington. You can make queries about rain, wind, UV index, temperature, clouds and air pressure.
 
   utter_cheer_up:
   - text: "Here is something to cheer you up:"
@@ -19,15 +79,43 @@ responses:
 
   utter_did_that_help:
   - text: "Did that help you?"
+  - text: "Was it helpful?"
 
   utter_happy:
   - text: "Great, carry on!"
+  - text: "That's nice to hear"
+
+  utter_wants_a_joke:
+  - text: "Do you wanna hear a joke?"
+  - text: "Do you want me to tell you a joke?"
+
+  utter_tell_a_joke:
+  - text: "What is the best thing about Switzerland? I don't know but the flag is a big plus."
+  - text: "I invented a new word. Plagiarism!"
+  - text: "What is a hardware? \n A part of computer which you can actually kick"
+  - text: "Why Java programmers wear glasses? \n \n Because they don't C#"
 
   utter_goodbye:
   - text: "Bye"
+  - text: "See you"
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
+
+  utter_provide_destination:
+  - text: "Please provide the destination"
+
+actions:
+- action_wx
+- utter_ask_city
+- utter_goodbye
+- utter_greet
+
+forms:
+  city_form:
+    city:
+    - type: from_entity
+      entity: city
 
 session_config:
   session_expiration_time: 60
