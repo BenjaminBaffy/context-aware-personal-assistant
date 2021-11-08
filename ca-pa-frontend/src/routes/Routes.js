@@ -1,18 +1,22 @@
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import DemoComponent from '../features/demo/DemoComponent/DemoComponent'
+import HomePage from '../features/home/HomePage/HomePage'
+import LoggedInLayout from '../features/layout/LoggedInLayout'
 
 const Routes = () => {
-    // TODO add Layout
+    const Layout = LoggedInLayout;
 
     return (
-        <Switch>
-            <Route exact path="/">
-                <h1>Hello World</h1>
-            </Route>
-            <Route exact path="/demo">
-                <DemoComponent />
-            </Route>
-        </Switch>
+        <Layout>
+            <Switch>
+                <Route exact path="/">
+                    <HomePage />
+                </Route>
+                <Route exact path="/demo">
+                    <DemoComponent />
+                </Route>
+            </Switch>
+        </Layout>
     )
 }
 

@@ -38,16 +38,16 @@ const demoSlice = createSlice({
     }
 })
 
-// 4) export actions
-export const {
+// 4) extract actions
+const {
     setDemoStateField,
     setLoading,
     setError,
     getSomethingSuccess,
 } = demoSlice.actions
 
-// 5) create & export async actions with possible side effects (aka Thunks)
-export const getSomething = (): AppThunk => async (dispatch, getState) => {
+// 5) create async actions with possible side effects (aka Thunks)
+const getSomething = (): AppThunk => async (dispatch, getState) => {
     // access current state if necessary
     const { demoStateField } = getState().demo
 
@@ -74,5 +74,14 @@ export const getSomething = (): AppThunk => async (dispatch, getState) => {
     }
 }
 
-// 6) export the reducer of the slice
+// 6) export actions
+export const demoActions = {
+    setDemoStateField,
+    setLoading,
+    setError,
+    getSomethingSuccess,
+    getSomething,
+}
+
+// 7) export the reducer of the slice
 export default demoSlice.reducer

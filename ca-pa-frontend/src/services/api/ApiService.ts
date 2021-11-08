@@ -1,6 +1,7 @@
 import { CommonError } from '../../errors/common.error'
 import axios, { AxiosRequestConfig, AxiosInstance } from 'axios'
 import qs from 'qs'
+import { RasaClient } from './_generated/test-generated-axios-backend-api'
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
@@ -10,6 +11,12 @@ const axiosInstance: AxiosInstance = axios.create({
   },
   withCredentials: false, // maybe remove after backend integration
 });
+
+export const rasaClient = new RasaClient(undefined, axiosInstance)
+
+export const setAccessToken = (token: string) => {
+  axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
+}
 
 // Add a request interceptor
 axiosInstance.interceptors.request.use(

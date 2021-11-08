@@ -1,0 +1,65 @@
+// @import 'src/assets/scss/variables';
+
+.layout {
+    min-height: 100%;
+}
+
+.header {
+    display: flex;
+    background-color: #3e087c;
+    height: 55px;
+    line-height: 55px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-shadow: 0px 0px 9px 3px rgba(41,41,41,.25);
+    justify-content: space-between;
+}
+
+.menu {
+    width: calc(100% - 400px);
+    min-width: 50px;
+    user-select: none;
+    border-bottom: none;
+    background-color: #3e087c;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    margin-right: 40px;
+}
+
+.content {
+    margin-top: 55px;
+    padding: 0 40px;
+    min-height: 100%;
+}
+
+@media screen and (max-width: 1700px) {
+    .content {
+        padding: 0; // 0 10px
+    }
+}
+
+.rightMenu {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: hidden;
+
+    & > div {
+        flex-shrink: 0;
+        margin-right: 1rem;
+    }
+
+    :global(.ant-btn-text) {
+        color: lightgray;
+    }
+
+    :global(.ant-btn) {
+        background-color: #310661;
+        &:hover {
+            background-color: #6112bb;
+        }
+    }
+}
