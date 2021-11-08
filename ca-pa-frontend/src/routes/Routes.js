@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom'
+import { Route, Routes as BrowserRoutes } from 'react-router-dom'
 import DemoComponent from '../features/demo/DemoComponent/DemoComponent'
 import HomePage from '../features/home/HomePage/HomePage'
 import LoggedInLayout from '../features/layout/LoggedInLayout'
@@ -8,14 +8,10 @@ const Routes = () => {
 
     return (
         <Layout>
-            <Switch>
-                <Route exact path="/">
-                    <HomePage />
-                </Route>
-                <Route exact path="/demo">
-                    <DemoComponent />
-                </Route>
-            </Switch>
+            <BrowserRoutes>
+                <Route exact path="/" element={<HomePage />} />
+                <Route exact path="/demo" element={<DemoComponent />} />
+            </BrowserRoutes>
         </Layout>
     )
 }
