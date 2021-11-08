@@ -3,19 +3,15 @@ digraph  {
 "-1" [class=end, fillcolor=red, fontsize=12, label=END, style=filled];
 1 [class=active, fontsize=12, label=action_session_start];
 2 [class=active, fontsize=12, label=utter_greet];
-3 [class=active, fontsize=12, label=utter_wants_a_joke];
-4 [class=active, fontsize=12, label=utter_tell_a_joke];
-5 [class="intent dashed active", label="  ?  ", shape=rect];
-6 [class="intent active", fillcolor=lightblue, label="Hi my name is Elshan", shape=rect, style=filled];
-7 [class="intent active", fillcolor=lightblue, label="I am sad", shape=rect, style=filled];
-8 [class="intent active", fillcolor=lightblue, label=indeed, shape=rect, style=filled];
+3 [class=active, fontsize=12, label=action_wx];
+4 [class="intent dashed active", label="  ?  ", shape=rect];
+5 [class="intent active", fillcolor=lightblue, label="Hello My name is Elshan", shape=rect, style=filled];
+6 [class="intent active", fillcolor=lightblue, label="how's the weather now in Debrecen", shape=rect, style=filled];
 0 -> "-1"  [class="", key=NONE, label=""];
 0 -> 1  [class=active, key=NONE, label=""];
-1 -> 6  [class=active, key=0];
-2 -> 7  [class=active, key=0];
-3 -> 8  [class=active, key=0];
-4 -> 5  [class=active, key=NONE, label=""];
-6 -> 2  [class=active, key=0];
-7 -> 3  [class=active, key=0];
-8 -> 4  [class=active, key=0];
+1 -> 5  [class=active, key=0];
+2 -> 6  [class=active, key=0];
+3 -> 4  [class=active, key=NONE, label=""];
+5 -> 2  [class=active, key=0];
+6 -> 3  [class=active, key=0];
 }
