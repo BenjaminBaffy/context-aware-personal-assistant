@@ -11,35 +11,46 @@ Welcome to the backend!
 Run `dotnet --version`
 Response should be at least `5.0.402`
 
-NOTE: .NET 5.0 is the continuation of the .NET Core project (3.1 is the latest of it)
+**NOTE**: .NET 5.0 is the continuation of the .NET Core project (and on it's philosophy)
 
 ### Run the app
 
-Get to the main directory.
+Get to the main directory of the GIT repository.
 Run `dotnet restore` (not needed every time)
 Run `dotnet build`
+Optionally the unit tests can be run with `dotnet test` or `dotnet test --logger "console;verbosity=detailed"` for a more detailed answer
 Run `dotnet run -p backend/Assistant-WebService/Assistant.API/`
 
-You'll be redirected to the Swagger page, where you can see
+Running the page should open the browser, and redirect to the Swagger page, where you can see the exposed
 
-Or just use the Visual Studio Code
+Alternatively, Visual Studio Code can be used
 
 ## IDE integration
 
-Currently it's been tested under Visual Studio Code, but it should be seamless if you use the same (though recommended to use what you really like :) )
+Currently it's been tested under Visual Studio Code, but it should be seamless if you use the same.
+There's a launch profile to run the service. Select the web service  in the `Run and Debug` panel. and RUN it.
 
 ### .NET Core Solution Structure
 
 #### API
 
 Here are the the entry point interfaces defined for the WebServer and anything WebServer related.
-.NET Core MVC is a Model-View-Controller design pattern. We keep the View party empty, as this is only a Web API.
-Controller classes accepts message coming from and delegate to the Application Layer. It uses pattern matching to do it.
+.NET Core MVC is based on Model-View-Controller design pattern. We keep the View party empty, as this is only a Web API, we only returns results in JSON (which can be intepreted as the View)
+Controller classes accepts message coming from the FrontEnd and delegate them to the Application Layer. Routes are using pattern matching, to end up in the right method. Ex.
+
+##### Controllers
+
 `[Route("api/something")]` defines the entry url on class level which can be further refined additionally in any method you add.
 
-Startup.cs holds the configuration of the web server: Startup.cs is the DI config where you can set up your class resolution. Also contains the middlewares.
+##### Startup.cs
 
+Startup.cs holds the configuration of the web server
+It confifures the DI (Dependency Injection) at `ConfigureServices` method where you can register your service classes. You don't have to worry about creating service class instances later.
+Example:
 If you introduce a new interface-class pair called `IMyClass` and `MyClass`, make sure it's registered in the Startup.cs as `services.AddTransient<IMyClass, MyClass>();`. After that, you can use it anywhere using constructor injection (there are couple of examples how to use it)
+
+Also contains the middleware configuration, which essentially the pipeline each web request go through.Ex. routing, authentication, forwarding requests to controllers.
+Note that the order is fixed in the order configured at the `Configure` method.
 
 #### Application
 
@@ -47,8 +58,8 @@ This is where the main application logic is happening, small classes handle requ
 
 #### Domain
 
-These contains the class definitions which later used to hold the data of the application
-ViewModels: the input and the output classes directly to the main API
+These contains the class definitions which later used to hold the data going through the application
+ViewModels: the input and the output classes directly of the main API
 DataBaseModel: contains the sturcture of the database
 RasaHttpModel: the communication interface with Rasa rest API
 
@@ -66,6 +77,6 @@ React related
 
 TODO
 
-- Add new service
+- How to add a new service
 - Add something to the API part
 - Registering to DI
