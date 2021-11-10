@@ -1,9 +1,11 @@
 .container {
     width: 18rem;
+    color: white;
     border-radius: 14px;
-    border: 2px solid #eeeded;
+    // border: 2px solid #eeeded;
+    border: 2px solid #640391;
     padding: 1.5rem 1rem;
-    background-color: #eeeded;
+    background-color: #640391;
 
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
@@ -11,6 +13,12 @@
     &:hover {
         box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     }
+}
+
+.title {
+    color: white;
+    font-size: 32px;
+    margin-bottom: 1rem;
 }
 
 .animatedBackground {
@@ -24,7 +32,7 @@
     background-position: 0 0;
     background-size: auto 100%;
     /*adjust s value for speed*/
-    animation: animatedBackground 600s linear infinite;
+    animation: animatedBackground 400s linear infinite;
 }
 
 @keyframes animatedBackground {

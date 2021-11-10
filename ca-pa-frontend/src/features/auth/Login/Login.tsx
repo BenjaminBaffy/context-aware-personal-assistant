@@ -22,21 +22,19 @@ const Login = () => {
                     <Col>
                         <div className={styles.container}>
                             <Row justify="center">
-                                <Col>
-                                    <div style={{ width: '10rem', margin: '0 auto' }}>
-                                        <Row justify="space-between" align="middle">
-                                            <Col>
-                                                <h1 style={{ fontSize: '32px', marginBottom: '1rem' }}>Login</h1>
-                                            </Col>
-                                            <Col>
-                                                <Icon component={MicrophoneSVG} style={{ fontSize: '32px', marginBottom: '1rem' }} />
-                                            </Col>
-                                        </Row>
-                                    </div>
+                                <Col span={20}>
+                                    <Row justify="space-between" align="middle">
+                                        <Col>
+                                            <h1 className={styles.title}>Login</h1>
+                                        </Col>
+                                        <Col>
+                                            <Icon component={MicrophoneSVG} style={{ fontSize: '32px', marginBottom: '1rem' }} />
+                                        </Col>
+                                    </Row>
                                 </Col>
                             </Row>
                             <Row justify="center">
-                                <Col>
+                                <Col span={20}>
                                     <LoginForm />
                                 </Col>
                             </Row>
