@@ -35,6 +35,7 @@ const LoginForm: React.FC<ILoginFormProps> = () => {
                     <Input
                         prefix={<UserOutlined />}
                         placeholder="Username"
+                        className={styles.input}
                     />
                 </Form.Item>
                 <Form.Item className={styles.formItem} name="password" required rules={requiredInput}>
@@ -42,12 +43,13 @@ const LoginForm: React.FC<ILoginFormProps> = () => {
                         prefix={<LockOutlined />}
                         placeholder="Password"
                         type="password"
+                        className={styles.input}
                     />
                 </Form.Item>
             </Form>
             <Row justify="end">
                 <Col>
-                    <Button htmlType="submit" onClick={() => form.submit()} type="primary">LOG IN</Button>
+                    <Button className={styles.loginButton} htmlType="submit" onClick={() => form.submit()} type="primary">Go!</Button>
                 </Col>
             </Row>
         </>

@@ -1,0 +1,72 @@
+.container {
+    width: 20rem;
+    color: white;
+    border-radius: 14px;
+    // border: 2px solid #eeeded;
+    border: 2px solid #640391;
+    padding: 1.5rem 1rem;
+    background-color: #640391;
+
+    box-shadow: 0 4px 8px 0 rgba($color: #8a04c9, $alpha: 0.35);
+    transition: 0.3s;
+
+    &:hover {
+        box-shadow: 0 8px 16px 0 rgba($color: #8a04c9, $alpha: 0.40);
+    }
+}
+
+.titleBar {
+    margin-bottom: 1rem;
+}
+
+.title {
+    color: white;
+    font-size: 32px;
+    margin-bottom: 0;
+}
+
+.appTitle {
+    margin-left: 0.5rem;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.microphone {
+    font-size: 32px;
+    margin: 0;
+    padding: 0.5rem;
+    border-radius: 50px;
+    border: 1px solid #640391;
+
+    &:hover {
+        border: 1px solid #8701c5;
+        cursor: pointer;
+        box-shadow: 0 0 16px 0 rgba($color: #8a04c9, $alpha: 0.35);
+        transition: 0.6s;
+    }
+}
+
+.animatedBackground {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url("../../../assets/Flowing\ sententeces.png");
+    background-repeat: repeat;
+    background-position: 0 0;
+    background-size: auto 100%;
+    /*adjust s value for speed*/
+    animation: animatedBackground 400s linear infinite;
+}
+
+@keyframes animatedBackground {
+    from {
+        background-position: 0 0;
+    }
+    /*use negative width if you want it to flow right to left else and positive for left to right*/
+    to {
+        background-position: -10000px 0;
+    }
+}
