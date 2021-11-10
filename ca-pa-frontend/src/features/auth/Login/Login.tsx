@@ -6,9 +6,6 @@ import useLogin from './useLogin'
 
 import styles from './Login.module.scss'
 
-// TODO add Form rules
-// TODO add LoginForm
-
 // How to Persist a Logged-in User in React
 // https://www.freecodecamp.org/news/how-to-persist-a-logged-in-user-in-react/
 
