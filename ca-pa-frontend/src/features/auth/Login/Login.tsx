@@ -1,4 +1,4 @@
-import { Col, Row } from 'antd'
+import { Col, Row, Tooltip } from 'antd'
 import Icon from '@ant-design/icons'
 import { ReactComponent as MicrophoneSVG } from '../../../assets/micrphone.svg'
 import LoginForm from './LoginForm/LoginForm'
@@ -17,24 +17,34 @@ const Login = () => {
             <Col>
                 <Row style={{ height: '100%' }} align="middle" justify="center">
                     <Col>
+                    <div className={styles.appTitle}>{process.env.REACT_APP_PROJECT_TITLE + "®"}</div>
                         <div className={styles.container}>
+
                             <Row justify="center">
                                 <Col span={20}>
-                                    <Row justify="space-between" align="middle">
+
+                                    <Row justify="space-between" align="middle" className={styles.titleBar}>
                                         <Col>
                                             <h1 className={styles.title}>Login</h1>
                                         </Col>
                                         <Col>
-                                            <Icon component={MicrophoneSVG} style={{ fontSize: '32px', marginBottom: '1rem' }} />
+                                            <Tooltip title="Help from RASA">
+                                                <div onClick={() => console.log('Activate RASA')}>
+                                                    <Icon className={styles.microphone} component={MicrophoneSVG} />
+                                                </div>
+                                            </Tooltip>
                                         </Col>
                                     </Row>
+
                                 </Col>
                             </Row>
+
                             <Row justify="center">
                                 <Col span={20}>
                                     <LoginForm />
                                 </Col>
                             </Row>
+
                         </div>
                     </Col>
                 </Row>
