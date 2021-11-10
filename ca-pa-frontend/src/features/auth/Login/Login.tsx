@@ -4,6 +4,8 @@ import { ReactComponent as MicrophoneSVG } from '../../../assets/micrphone.svg'
 import LoginForm from './LoginForm/LoginForm'
 import useLogin from './useLogin'
 
+import styles from './Login.module.scss'
+
 // TODO add Form rules
 // TODO add LoginForm
 
@@ -14,27 +16,35 @@ const Login = () => {
     useLogin()
 
     return (
-        <>
-            <Row justify="center">
-                <Col>
-                    <div style={{ width: '10rem', margin: '0 auto' }}>
-                        <Row justify="space-between" align="middle">
-                            <Col>
-                                <h1 style={{ fontSize: '32px', marginBottom: '1rem' }}>Login</h1>
-                            </Col>
-                            <Col>
-                                <Icon component={MicrophoneSVG} style={{ fontSize: '32px', marginBottom: '1rem' }} />
-                            </Col>
-                        </Row>
-                    </div>
-                </Col>
-            </Row>
-            <Row justify="center">
-                <Col>
-                    <LoginForm />
-                </Col>
-            </Row>
-        </>
+        <Row style={{ height: '100vh' }} justify="center" className={styles.animatedBackground}>
+            <Col>
+                <Row style={{ height: '100%' }} align="middle" justify="center">
+                    <Col>
+                        <div className={styles.container}>
+                            <Row justify="center">
+                                <Col>
+                                    <div style={{ width: '10rem', margin: '0 auto' }}>
+                                        <Row justify="space-between" align="middle">
+                                            <Col>
+                                                <h1 style={{ fontSize: '32px', marginBottom: '1rem' }}>Login</h1>
+                                            </Col>
+                                            <Col>
+                                                <Icon component={MicrophoneSVG} style={{ fontSize: '32px', marginBottom: '1rem' }} />
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                </Col>
+                            </Row>
+                            <Row justify="center">
+                                <Col>
+                                    <LoginForm />
+                                </Col>
+                            </Row>
+                        </div>
+                    </Col>
+                </Row>
+            </Col>
+        </Row>
     )
 }
 

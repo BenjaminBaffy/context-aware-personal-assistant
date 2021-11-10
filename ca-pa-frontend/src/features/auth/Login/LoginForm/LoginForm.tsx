@@ -47,7 +47,7 @@ const LoginForm: React.FC<ILoginFormProps> = () => {
             </Form>
             <Row justify="end">
                 <Col>
-                    <Button htmlType="submit" onClick={() => form.submit()} type="primary">LOG IN</Button>
+                    <Button className={styles.loginButton} htmlType="submit" onClick={() => form.submit()} type="primary">LOG IN</Button>
                 </Col>
             </Row>
         </>

@@ -3,5 +3,11 @@
 }
 
 .loginButton {
-    color: purple;
+    border-radius: 10px;
+    border: none;
+    background-color: #be41dd;
+
+    &:hover {
+        background-color: #9a38b3;
+    }
 }
