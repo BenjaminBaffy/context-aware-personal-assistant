@@ -25,7 +25,7 @@ const Login = () => {
 
                                     <Row justify="space-between" align="middle" className={styles.titleBar}>
                                         <Col>
-                                            <h1 className={styles.title}>Login</h1>
+                                            <h1 className={styles.title}>Sign in</h1>
                                         </Col>
                                         <Col>
                                             <Tooltip title="Help from RASA">
