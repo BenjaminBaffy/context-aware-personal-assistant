@@ -14,7 +14,7 @@ namespace Assistant.API.Controllers.Admin
     [Route("api/admin/users")]
     // [OpenApiIgnore]
     // NOTE: REST maturity level 2.0
-    // NOTE: For easier
+    // NOTE: You can self manage users if u want to
     public class UserRestController : Controller
     {
         private readonly IDatabaseService<User> _userDbService;
