@@ -1,4 +1,4 @@
-# Assistnat core module with Rasa
+# Assistant core module with Rasa
 
 ## Setup virtual environment
 
