@@ -27,7 +27,7 @@ If it's your first time with conda, initialize your shell:
 
 Activate venv
 
-`conda activate capa`
+`$ conda activate capa`
 
 \+ Maybe you don't want to auto-enable the base conda venv
 
