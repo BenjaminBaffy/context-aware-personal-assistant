@@ -11,25 +11,25 @@ RUN `conda env create -n capa python=3.8`
 RUN `conda activate capa`
 
 
-### macOS 12+
+### macOS
 
-Install `miniconda` with Homebrew
+1. Install `miniconda` with Homebrew
 
 `$ brew install --cask miniconda`
 
-Create virtual python environment
+2. Create virtual python environment
 
 `$ conda create -n capa python=3.8`
 
-If it's your first time with conda, initialize your shell:
+4. If it's your first time with conda, initialize your shell:
 
 `$ conda init <YOUR-SHELL-NAME>` (i.e.: `$ conda init zsh`)
 
-Activate venv
+5. Activate venv
 
 `$ conda activate capa`
 
-\+ Maybe you don't want to auto-enable the base conda venv
+6. \+ Maybe you don't want to auto-enable the base conda venv
 
 `$ conda config --set auto_activate_base false`
 
