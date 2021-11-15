@@ -100,7 +100,11 @@ responses:
   - text: "What is the best thing about Switzerland? I don't know but the flag is a big plus."
   - text: "I invented a new word. Plagiarism!"
   - text: "What is a hardware? \n A part of computer which you can actually kick"
-  - text: "Why Java programmers wear glasses? \n \n Because they don't C#"
+  - text: "Chuck Norris can take screenshot of his bluescreen"
+  - text: "What time is it when the clock strikes 13? \nTime to get a new clock."
+  - text: "What's red and bad for your teeth? A brick"
+  - text: "I just got my doctor's test results and I'm really upset. Turns out, I'm not gonna be a doctor."
+  - text: "Chuck Norris writes code that optimizes itself"
 
   utter_goodbye:
   - text: "Bye"
