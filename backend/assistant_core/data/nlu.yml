@@ -272,17 +272,3 @@ nlu:
   examples: |
     - Szeged
     - szeged
-
-- lookup: name
-  examples: |
-    - Joe
-    - Benjamin
-    - Benny
-    - Elshan
-    - Adam
-    - Zoltan
-    - Zoli
-    - Saikha
-    - Jon
-    - Jack
-    - Richard
