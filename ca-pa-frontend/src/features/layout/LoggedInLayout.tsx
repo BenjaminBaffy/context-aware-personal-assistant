@@ -35,6 +35,9 @@ const LoggedInLayout: React.FC<ILayoutProps> = ({ children }) => {
                     <Menu.Item key="/demo">
                         <Link to="/demo">Demo</Link>
                     </Menu.Item>
+                    <Menu.Item key="/rasa">
+                        <Link to="/rasa">Rasa</Link>
+                    </Menu.Item>
                 </Menu>
                 <div className={styles.rightMenu}>
                     <div>

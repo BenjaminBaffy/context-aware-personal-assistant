@@ -1,0 +1,26 @@
+.container {
+    border-radius: 14px;
+    background-color: rgba(233, 233, 233, 0.514);
+    // background-color: #be80db85;
+    // border: 1px solid rgba(221, 221, 221, 1.0);
+    height: 90vh;
+    margin: 1rem 5rem;
+    padding: 1rem 2rem;
+}
+
+.messages {
+    height: 65vh;
+    overflow-y: scroll;
+    // box-shadow: inset 0 0 80px 10px rgba($color: #000000, $alpha: 0.3);
+    padding-bottom: 1rem;
+}
+
+.input {
+    // margin-right: 50%;
+    margin-top: 2rem;
+}
+
+.clearButton {
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+}

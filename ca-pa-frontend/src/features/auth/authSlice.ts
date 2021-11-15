@@ -1,15 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import User from '../../models/User'
 import { localStorage, LocalStorageKey } from '../../services/persistance/localStorage'
 import { AppThunk } from '../../store/store'
+import delay from '../../utils/delay'
 
 interface AuthState {
     accessToken: string | null;
 
-    user: {
-        name: string | null;
-        userId: string;
-        roles: [];
-    };
+    user: User;
 
     loggedIn: boolean;
     loading: boolean;
@@ -21,8 +19,7 @@ const initialState: AuthState = {
 
     user: {
         name: null,
-        userId: '',
-        roles: [],
+        userId: null,
     },
 
     loggedIn: false,
@@ -68,16 +65,24 @@ const {
 const login = (credentials: { username: string, password: string }): AppThunk => async (dispatch, getState) => {
     const { username, password } = credentials
 
+    const { user } = getState().auth
+
     try {
         dispatch(setLoading(true))
 
         // verify user + passwd
-        // const response = await ...
-        const response = {
+
+        const responseMock = {
+            ...user,
+            userId: '45faf31-53eg3h2-2eq3h53',
             name: username,
-            userId: 'id',
-            roles: [],
         }
+
+        const apiCallMock = async () => {
+            return await delay(responseMock, 1200)
+        }
+
+        const response = await apiCallMock()
 
         dispatch(setUser(response))
         localStorage.set(LocalStorageKey.UserDetails, response)
@@ -97,7 +102,6 @@ const logout = (): AppThunk => async (dispatch, getState) => {
 
         // clear localStorage
         localStorage.set(LocalStorageKey.UserDetails, initialState.user)
-
         dispatch(resetUser())
     } catch(e: any) {
         dispatch(setError(e.toString()))

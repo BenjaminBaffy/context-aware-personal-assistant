@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Button, Col, Form, Input, Row} from 'antd'
+import { Button, Col, Form, Input, Row, Spin} from 'antd'
 import { RootState } from '../../../../store/store'
 import ErrorDisplay from '../../../../components/ErrorDisplay/ErrorDisplay'
 import useLoginForm from './useLoginForm'
@@ -12,7 +12,7 @@ import styles from './LoginForm.module.scss'
 interface ILoginFormProps { }
 
 const LoginForm: React.FC<ILoginFormProps> = () => {
-    const { error } = useSelector((state: RootState) => state.auth)
+    const { error, loading } = useSelector((state: RootState) => state.auth)
     const [form] = Form.useForm()
     const { handleFormFinish } = useLoginForm()
 
@@ -24,6 +24,7 @@ const LoginForm: React.FC<ILoginFormProps> = () => {
     }
 
     return (
+        loading ? <Spin /> :
         <>
             {error && <ErrorDisplay message={error} />}
             <Form

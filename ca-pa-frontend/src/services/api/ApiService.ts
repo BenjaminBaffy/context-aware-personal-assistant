@@ -42,7 +42,7 @@ axiosInstance.interceptors.response.use(
   async function (errorObj) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    if (errorObj.code === 'ECONNABORTED' || errorObj.response.status === 408) {
+    if (errorObj.code === 'ECONNABORTED' || errorObj?.response?.status === 408) {
       return Promise.reject(CommonError.TIMEOUT);
     }
     const error = errorObj.response;
