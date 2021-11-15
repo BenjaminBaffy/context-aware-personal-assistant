@@ -2,6 +2,7 @@ version: "2.0"
 
 intents:
   - greet
+  - intro
   - goodbye
   - affirm
   - deny
@@ -60,10 +61,16 @@ slots:
     - __other__
 
 responses:
-  utter_greet:
-  - text: "Hey {name}! How are you?"
+  utter_intro:
+  - text: "Hey {name}! \nHow are you?"
   - text: "Hello {name}"
-  - text: "Hi {name}. How can I help?"
+  - text: "Hi {name}. \nHow can I help?"
+
+  utter_greet:
+  - text: "Hey"
+  - text: "Hello"
+  - text: "Hi! \nHow can I help?"
+
 
   utter_ask_city:
   - text: In which Hungarian city?

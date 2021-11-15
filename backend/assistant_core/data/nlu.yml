@@ -16,12 +16,16 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
+
+- intent: intro
+  examples: |
     - Hello, my name is [Elshan](name)
     - hi, I am [Elshan](name)
     - hello there, my name is [Elshan](name)
     - Hi, I am [Benny](name)
     - Hello, my name is [Benny](name)
-
+  
+    
 - intent: goodbye
   examples: |
     - good afternoon
@@ -268,3 +272,17 @@ nlu:
   examples: |
     - Szeged
     - szeged
+
+- lookup: name
+  examples: |
+    - Joe
+    - Benjamin
+    - Benny
+    - Elshan
+    - Adam
+    - Zoltan
+    - Zoli
+    - Saikha
+    - Jon
+    - Jack
+    - Richard
