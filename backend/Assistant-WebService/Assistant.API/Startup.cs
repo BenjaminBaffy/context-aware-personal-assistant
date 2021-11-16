@@ -1,10 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Assistant.Application.Interfaces;
+using Assistant.Application.Interfaces.Authentication;
 using Assistant.Application.Services;
+using Assistant.Application.Services.Authentication;
 using Assistant.Domain.Configuration;
+using Assistant.Domain.Configuration.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -47,8 +46,13 @@ namespace Assistant.API
             services.AddScoped(typeof(IDatabaseService<>), typeof(DatabaseService<>));
 
             services.AddOptions();
-
             services.Configure<ApplicationConfiguration>(Configuration.GetSection(nameof(ApplicationConfiguration)));
+            services.Configure<AuthenticationConfiguration>(Configuration.GetSection(nameof(AuthenticationConfiguration)));
+
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ITokenBuilder, TokenBuilder>();
+            services.AddSingleton<IEncryption, AesEncryption>();
+            services.AddSingleton<Sha512Helper>();
 
             services.AddHttpClient<IRasaHttpService, RasaHttpService>(); // Adds a DI registration where a HttpClient is injected
 

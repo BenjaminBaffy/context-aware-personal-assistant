@@ -8,9 +8,11 @@ using Grpc.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using NSwag.Annotations;
 
 namespace Assistant.API.Controllers
 {
+    [OpenApiIgnore]
     [ApiController]
     [Route("api/test-emulator")]
     public class TestEmulatorController : Controller

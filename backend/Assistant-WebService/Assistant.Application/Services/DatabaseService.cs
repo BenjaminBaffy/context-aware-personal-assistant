@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Assistant.Application.Services;
 using Assistant.Domain.Database;
@@ -79,9 +80,10 @@ namespace Assistant.Application.Interfaces
         }
 
         // TODO: this is not typesafe query (may result in empty response or exception)
-        public async Task<IEnumerable<T>> QueryRecords(Query query)
+        public async Task<IEnumerable<T>> QueryRecords(Query query, CancellationToken cancellationToken)
         {
-            var querySnapshot = await query.GetSnapshotAsync();
+            var collectionSnapshot = _firestoreDb.Collection(GetCollectionName());
+            var querySnapshot = await query.GetSnapshotAsync(cancellationToken);
 
             return querySnapshot.Documents
                 .Where(doc => doc.Exists)
@@ -93,12 +95,17 @@ namespace Assistant.Application.Interfaces
         }
 
         // TODO: this is not typesafe query (may result in empty response or exception)
-        public Task<IEnumerable<T>> QueryRecords(Func<Query> queryFunction)
+        public Task<IEnumerable<T>> QueryRecords(Func<Query> queryFunction, CancellationToken cancellationToken)
         {
-            return QueryRecords(queryFunction());
+            return QueryRecords(queryFunction(), cancellationToken);
         }
 
-        private async Task<IEnumerable<DocumentSnapshot>> QuerySnapshot(FirestoreDb firestoreDb)
+        public CollectionReference CollectionReference()
+        {
+            return _firestoreDb.Collection(GetCollectionName());
+        }
+
+        private async Task<IEnumerable<DocumentSnapshot>> DocumentSnapshot(FirestoreDb firestoreDb)
         {
             var collectionReference = _firestoreDb.Collection(GetCollectionName());
             var querySnapshot = await collectionReference.GetSnapshotAsync();
@@ -106,9 +113,9 @@ namespace Assistant.Application.Interfaces
             return querySnapshot.Documents;
         }
 
+        // FIXME: Conventional naming for database names. May be too restrictice
         private static string GetCollectionName()
         {
-            // NOTE: not necessarily this is the name
             return typeof(T).Name.ToLower() + "s"; // Turns "TestData" classname into "testdatas" collection name
         }
     }
