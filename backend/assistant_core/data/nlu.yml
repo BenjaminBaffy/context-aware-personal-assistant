@@ -120,61 +120,68 @@ nlu:
     - I would like to get [tomatoes] (items) and [ham](items)
 
 
-  # example questions when location is given by the user
 - intent: weather_in_city
   examples: |
-    - what is the [weather](wx_type) [tomorrow](forecast_period) in [Budapest](city)?
-    - how's the [weather](wx_type) [now](forecast_period) in [Debrecen](city)?
-    - Tell me the [weather](wx_type) [today](forecast_period) in [Budapest](city)
-    - [weather](wx_type) in [Budapest](city) [tomorrow](forecast_period)
-    - is it [windy](wx_type) in [Budapest](city) [today](forecast_period)
-    - [raining](wx_type) [tomorrow](forecast_period) in [Szeged](city)
-    - is it [cloudy](wx_type) in [Debrecen](city) [tomorrow](forecast_period)
-    - [today](forecast_period) [rain](wx_type) in [Budapest](city)
-    - [raining](wx_type) in [Debrecen](city) [tomorrow](forecast_period)
-    - [temperature](wx_type) [current](forecast_period) in [Budapest](city)
-    - what is the [temperature](wx_type) in [Debrecen](city) [today](forecast_period)
-    - is it going to be [temperature](wx_type) in [Debrecen](city) [today](forecast_period)
-    - [wind](wx_type) in [Debrecen](city) [today](forecast_period)
-    - is it going to [rain](wx_type) in [Szeged](city) [tomorrow](forecast_period)
-    - [humid](wx_type) [today](forecast_period) in [Szeged](city)
-    - is it [windy](wx_type) [today](forecast_period) in [Budapest](city)
-    - is it going to [rain](wx_type) in [Debrecen](city) [tomorrow](forecast_period)
-    - is it going to be [cloudy](wx_type) in [Debrecen](city) [tomorrow](forecast_period)
-    - air [pressure](wx_type) in [Debrecen](city) [current](forecast_period)
-    - [pressure](wx_type) in [Debrecen](city) [today](forecast_period)
-    - what is the [pressure](wx_type) in [Budapest](city) [tomorrow](forecast_period)
-    - [humidity](wx_type) in [Debrecen](city) [tomorrow](forecast_period)
-    - [uvi](wx_type) in [Budapest](city) [today](forecast_period)
-    - what is the [humidity](wx_type) in [Budapest](city) [tomorrow](forecast_period)
-    - [rain](wx_type) [Szeged](city) [tomorrow](forecast_period)
-    - [Budapest](city) [current](forecast_period)
-    - [Szeged](city) [tomorrow](forecast_period)
-    - [Budapest](city)
-    - [Szeged](city)
-    - what is the [weather](wx_type) in [Budapest](city)?
-    - how's the [UV index](wx_type) in [Debrecen](city)?
-    - Tell me the [weather](wx_type) in [Budapest](city)
-    - [weather](wx_type) in [Budapest](city)
-    - [weather](wx_type) in [Szeged](city)
-    - is it [windy](wx_type) in [Budapest](city)
-    - [raining](wx_type) in [Szeged](city)
-    - is it [cloudy](wx_type) in [Debrecen](city)
-    - [rain](wx_type) in [Budapest](city)
-    - [raining](wx_type) in [Debrecen](city)
-    - [temperature](wx_type) in [Budapest](city)
-    - what is the [temperature](wx_type) in [Debrecen](city)
-    - is it going to be [cloudy](wx_type) in [Debrecen](city)
-    - is it going to [UV index](wx_type) in [Szeged](city)
-    - what is the [weather](wx_type) for [Szeged](city)
-    - what is the [pressure](wx_type) in [Budapest](city)
-    - air [pressure](wx_type) in [Budapest](city)
-    - what is the [humidity](wx_type) in [Budapest](city)
-    - air [humidity](wx_type) in [Budapest](city)
-    - [uvi](wx_type) [Budapest](city)
-    - [weather](wx_type) [Szeged](city)
-    - how about [Szeged](city)
-    - [humidity] (wx_type) in [Debrecen](city)
+    - what is the weather in [Budapest](city)?
+    - how is the weather in [Budapest](city)?
+    - what is the weather in [London](city)?
+    - how is the weather in [London](city)?
+
+#   # example questions when location is given by the user
+# - intent: weather_in_city
+#   examples: |
+#     - what is the [weather](wx_type) [tomorrow](forecast_period) in [Budapest](city)?
+#     - how's the [weather](wx_type) [now](forecast_period) in [Debrecen](city)?
+#     - Tell me the [weather](wx_type) [today](forecast_period) in [Budapest](city)
+#     - [weather](wx_type) in [Budapest](city) [tomorrow](forecast_period)
+#     - is it [windy](wx_type) in [Budapest](city) [today](forecast_period)
+#     - [raining](wx_type) [tomorrow](forecast_period) in [Szeged](city)
+#     - is it [cloudy](wx_type) in [Debrecen](city) [tomorrow](forecast_period)
+#     - [today](forecast_period) [rain](wx_type) in [Budapest](city)
+#     - [raining](wx_type) in [Debrecen](city) [tomorrow](forecast_period)
+#     - [temperature](wx_type) [current](forecast_period) in [Budapest](city)
+#     - what is the [temperature](wx_type) in [Debrecen](city) [today](forecast_period)
+#     - is it going to be [temperature](wx_type) in [Debrecen](city) [today](forecast_period)
+#     - [wind](wx_type) in [Debrecen](city) [today](forecast_period)
+#     - is it going to [rain](wx_type) in [Szeged](city) [tomorrow](forecast_period)
+#     - [humid](wx_type) [today](forecast_period) in [Szeged](city)
+#     - is it [windy](wx_type) [today](forecast_period) in [Budapest](city)
+#     - is it going to [rain](wx_type) in [Debrecen](city) [tomorrow](forecast_period)
+#     - is it going to be [cloudy](wx_type) in [Debrecen](city) [tomorrow](forecast_period)
+#     - air [pressure](wx_type) in [Debrecen](city) [current](forecast_period)
+#     - [pressure](wx_type) in [Debrecen](city) [today](forecast_period)
+#     - what is the [pressure](wx_type) in [Budapest](city) [tomorrow](forecast_period)
+#     - [humidity](wx_type) in [Debrecen](city) [tomorrow](forecast_period)
+#     - [uvi](wx_type) in [Budapest](city) [today](forecast_period)
+#     - what is the [humidity](wx_type) in [Budapest](city) [tomorrow](forecast_period)
+#     - [rain](wx_type) [Szeged](city) [tomorrow](forecast_period)
+#     - [Budapest](city) [current](forecast_period)
+#     - [Szeged](city) [tomorrow](forecast_period)
+#     - [Budapest](city)
+#     - [Szeged](city)
+#     - what is the [weather](wx_type) in [Budapest](city)?
+#     - how's the [UV index](wx_type) in [Debrecen](city)?
+#     - Tell me the [weather](wx_type) in [Budapest](city)
+#     - [weather](wx_type) in [Budapest](city)
+#     - [weather](wx_type) in [Szeged](city)
+#     - is it [windy](wx_type) in [Budapest](city)
+#     - [raining](wx_type) in [Szeged](city)
+#     - is it [cloudy](wx_type) in [Debrecen](city)
+#     - [rain](wx_type) in [Budapest](city)
+#     - [raining](wx_type) in [Debrecen](city)
+#     - [temperature](wx_type) in [Budapest](city)
+#     - what is the [temperature](wx_type) in [Debrecen](city)
+#     - is it going to be [cloudy](wx_type) in [Debrecen](city)
+#     - is it going to [UV index](wx_type) in [Szeged](city)
+#     - what is the [weather](wx_type) for [Szeged](city)
+#     - what is the [pressure](wx_type) in [Budapest](city)
+#     - air [pressure](wx_type) in [Budapest](city)
+#     - what is the [humidity](wx_type) in [Budapest](city)
+#     - air [humidity](wx_type) in [Budapest](city)
+#     - [uvi](wx_type) [Budapest](city)
+#     - [weather](wx_type) [Szeged](city)
+#     - how about [Szeged](city)
+#     - [humidity] (wx_type) in [Debrecen](city)
 
 
   # questions about what can I do

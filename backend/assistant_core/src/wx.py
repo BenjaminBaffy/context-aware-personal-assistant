@@ -5,23 +5,23 @@ import requests
 # information.
 # If set to false, the below pre-fetched query responses are used
 
-use_openweather_API = False
+# use_openweather_API = False
 
 # note that the OpenWeather one-call API does not support cities (as of 14/12/2020), but you'll need to provide coordinates as below. Any city with coordinates will do
 
-def wx_city(city, use_API=False):
+def wx_city(city, use_API=True):
     
     if use_API == True:
-        if city == "Budapest":
-            lat, lon = 47.49, 19.04
-        if city == "Debrecen":
-            lat, lon = 47.53, 21.62
-        else: # city == "Szeged":
-            lat, lon = 46.25, 20.14
+        # if city == "Budapest":
+        #     lat, lon = 47.49, 19.04
+        # if city == "Debrecen":
+        #     lat, lon = 47.53, 21.62
+        # else: # city == "Szeged":
+        #     lat, lon = 46.25, 20.14
          
         API_key = "0f7822807230d53f4377f28275dda1b4"
-        openweather_url = "http://api.openweathermap.org/data/2.5/onecall?"
-        Final_url = openweather_url + "appid=" + API_key + "&lat=" + str(lat) + "&lon=" + str(lon) + "&units=metric" + "&exclude=hourly,minutely,alerts"
+        openweather_url = "http://api.openweathermap.org/data/2.5/weather?"
+        Final_url = openweather_url + "q="+city+"&units=metric&appid="+API_key
         wx_data = requests.get(Final_url).json()
 
     else:

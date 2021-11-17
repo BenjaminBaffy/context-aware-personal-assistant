@@ -99,11 +99,11 @@ responses:
   utter_tell_a_joke:
   - text: "What is the best thing about Switzerland? I don't know but the flag is a big plus."
   - text: "I invented a new word. Plagiarism!"
-  - text: "What is a hardware? \n A part of computer which you can actually kick"
+  - text: "What is a hardware? \n\n A part of computer which you can actually kick"
   - text: "Chuck Norris can take screenshot of his bluescreen"
-  - text: "What time is it when the clock strikes 13? \nTime to get a new clock."
-  - text: "What's red and bad for your teeth? A brick"
-  - text: "I just got my doctor's test results and I'm really upset. Turns out, I'm not gonna be a doctor."
+  - text: "What time is it when the clock strikes 13? \n\nTime to get a new clock."
+  - text: "What's red and bad for your teeth? \n\nA brick"
+  - text: "I just got my doctor's test results and I'm really upset.\n\n Turns out, I'm not gonna be a doctor."
   - text: "Chuck Norris writes code that optimizes itself"
 
   utter_goodbye:
