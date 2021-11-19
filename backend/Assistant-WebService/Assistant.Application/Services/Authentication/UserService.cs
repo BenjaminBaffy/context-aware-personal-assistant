@@ -14,13 +14,13 @@ namespace Assistant.Application.Services.Authentication
         private readonly IDatabaseService<User> _userDbService;
         private readonly ITokenBuilder _tokenBuilder;
         private readonly Sha512Helper _sha512Helper;
-        private readonly ILogger<IUserService> _logger;
+        private readonly ILogger<UserService> _logger;
 
         public UserService(
             IDatabaseService<User> userDbService,
             ITokenBuilder tokenBuilder,
             Sha512Helper sha512Helper,
-            ILogger<IUserService> logger
+            ILogger<UserService> logger
         )
         {
             _userDbService = userDbService;
@@ -35,7 +35,7 @@ namespace Assistant.Application.Services.Authentication
             var users = await _userDbService.QueryRecords(() => 
             {
                 var query = _userDbService.CollectionReference()
-                    .WhereEqualTo(nameof(User.UserName), userName);
+                    .WhereEqualTo(nameof(User.LoginName), userName);
 
                 return query;
             }, cancellationToken);
@@ -55,7 +55,7 @@ namespace Assistant.Application.Services.Authentication
             return user;
         }
 
-        public string LoginUser(User user, CancellationToken cancellationToken)
+        public string LoginUser(User user)
         {
             var tokenString = _tokenBuilder.BuildAccessToken(user);
 
@@ -72,6 +72,5 @@ namespace Assistant.Application.Services.Authentication
         {
             return _sha512Helper.ComputeHash($"{salt}:{password}");
         }
-
     }
 }

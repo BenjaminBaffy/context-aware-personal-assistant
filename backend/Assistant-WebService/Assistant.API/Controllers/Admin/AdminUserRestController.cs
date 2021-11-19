@@ -6,22 +6,23 @@ using Assistant.Application.Interfaces;
 using Assistant.Application.Interfaces.Authentication;
 using Assistant.Domain.DatabaseModel;
 using Assistant.Domain.ViewModels.Admin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NSwag.Annotations;
 
 namespace Assistant.API.Controllers.Admin
 {
     [Route("api/admin/users")]
+    [AllowAnonymous] // Would not be published as this in normal scenarios
     // [OpenApiIgnore]
     // NOTE: REST maturity level 2.0
     // NOTE: You can self manage users if u want to
-    public class UserRestController : Controller
+    public class AdminUserRestController : Controller
     {
         private readonly IDatabaseService<User> _userDbService;
         private readonly IUserService _userService;
 
         // TODO: extend to base class?
-        public UserRestController(
+        public AdminUserRestController(
             IDatabaseService<User> userDbService,
             IUserService userService
         )
@@ -41,7 +42,8 @@ namespace Assistant.API.Controllers.Admin
                     Id = u.Id,
                     Password = u.Password,
                     Salt = u.Salt,
-                    UserName = u.UserName
+                    LoginName = u.LoginName,
+                    FullName = u.FullName,
                 }));
         }
 
@@ -56,7 +58,8 @@ namespace Assistant.API.Controllers.Admin
                     Id = user.Id,
                     Password = user.Password,
                     Salt = user.Salt,
-                    UserName = user.UserName
+                    LoginName = user.LoginName,
+                    FullName = user.FullName,
                 }
             );
         }
@@ -71,7 +74,8 @@ namespace Assistant.API.Controllers.Admin
                 {
                     Password = passwordHash,
                     Salt = salt,
-                    UserName = user.UserName
+                    LoginName = user.LoginName,
+                    FullName = user.FullName
                 }
             );
             
@@ -88,7 +92,8 @@ namespace Assistant.API.Controllers.Admin
                 new User
                 {
                     Id = user.Id,
-                    UserName = user.UserName,
+                    LoginName = user.LoginName,
+                    FullName = user.FullName,
                     Password = passwordHash,
                     Salt = salt,
                 }

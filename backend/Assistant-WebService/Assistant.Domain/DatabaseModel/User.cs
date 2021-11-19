@@ -10,7 +10,10 @@ namespace Assistant.Domain.DatabaseModel
         public string Id { get; set; }
 
         [FirestoreProperty]
-        public string UserName { get; set; }
+        public string LoginName { get; set; }
+
+        [FirestoreProperty]
+        public string FullName { get; set; }
 
         [FirestoreProperty]
         public string Password { get; set; }

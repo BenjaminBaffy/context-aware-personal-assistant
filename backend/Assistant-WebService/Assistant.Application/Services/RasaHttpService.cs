@@ -8,6 +8,7 @@ using Assistant.Application.Interfaces;
 using Assistant.Domain.Configuration;
 using Assistant.Domain.RasaHttpModel;
 using Assistant.Domain.ViewModels;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace Assistant.Application.Services
@@ -16,14 +17,17 @@ namespace Assistant.Application.Services
     {
         private readonly HttpClient _httpClient;
         private readonly ApplicationConfiguration _applicationConfiguration;
+        private readonly ILogger<RasaHttpService> _logger;
 
         public RasaHttpService(
             HttpClient httpClient,
-            IOptionsSnapshot<ApplicationConfiguration> applciationConfiguration
+            IOptionsSnapshot<ApplicationConfiguration> applciationConfiguration,
+            ILogger<RasaHttpService> logger
         )
         {
             _httpClient = httpClient;
             _applicationConfiguration = applciationConfiguration.Value;
+            _logger = logger;
         }
 
         public async Task<BotResponseViewModel> PostMessageToBot(BotMessageViewModel botMessage)
@@ -34,12 +38,15 @@ namespace Assistant.Application.Services
             if (result.IsSuccessStatusCode)
             {
                 var response = await result.Content.ReadAsStringAsync();
-                var botResponse = JsonSerializer.Deserialize<List<BotResponse>>(response).First(); // TODO: not safe code, TODO: explore: why it's a list?
+                var botResponse = JsonSerializer.Deserialize<List<BotResponse>>(response).FirstOrDefault(); // TODO: not safe code, TODO: explore: why it's a list?
+
+                if (botResponse == null)
+                    _logger.LogWarning("RASA hasn't responded anything");
 
                 return new BotResponseViewModel
                 {
                     Recipient = botResponse.Recipient,
-                    Message = botResponse.Message,
+                    Message = botResponse == null ? botResponse.Message : "[EMPTY MESSAGE]",
                 };
             }
 

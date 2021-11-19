@@ -30,19 +30,34 @@ namespace Assistant.API.Controllers
         [ProducesResponseType(typeof(PasswordLoginResponseViewModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> Login([FromBody] PasswordLoginViewModel request, CancellationToken cancellationToken)
         {
-            var user = await _userService.GetByPasswordAsync(request.UserName, request.Password, cancellationToken);
+            var user = await _userService.GetByPasswordAsync(request.LoginName, request.Password, cancellationToken);
 
             if (user == null)
                 return BadRequest("Incorrect user name or password");
 
-            var accessToken = _userService.LoginUser(user, cancellationToken);
+            var accessToken = _userService.LoginUser(user);
+
+            // TODO: load slots, conversations, etc to rasa
 
             var loginResponse = new PasswordLoginResponseViewModel
             {
-                AccessToken = accessToken
+                AccessToken = accessToken,
+                FullName = user.FullName,
             };
 
             return Ok(loginResponse);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Logout(CancellationToken cancellationToken)
+        {
+            // TODO: do we need to do something explicitly?
+            // TODO: remove slots from actual RASA?
+
+            await Task.Yield();
+
+            return NoContent();
         }
     }
 }
