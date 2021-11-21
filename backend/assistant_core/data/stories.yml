@@ -2,10 +2,17 @@ version: "2.0"
 
 stories:
 
-- story: happy path
+- story: happy path 1
   steps:
   - intent: greet
   - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: happy path 2
+  steps:
+  - intent: intro
+  - action: utter_intro
   - intent: mood_great
   - action: utter_happy
 
@@ -39,38 +46,7 @@ stories:
   - intent: weather_in_city
   - action: action_wx
 
-# - story: wx_2
-#   steps:
-#   - intent: weather_without_city
-#   - action: city_form
-#   - action: action_wx
-
-
-# # just in case some one asks - who are you...
-# - story: who_are_you
-#   steps:
-#   - intent: who_are_you
-#   - action: utter_im_rasa
-
-# - story: sad path 2
-#   steps:
-#   - intent: greet
-#   - action: utter_greet
-#   - intent: mood_unhappy
-#   - action: utter_cheer_up
-#   - action: utter_did_that_help
-#   - intent: affirm
-#   - action: utter_happy
-
-# - story: sad path 3
-#   steps:
-#   - intent: greet
-#   - action: utter_greet
-#   - intent: mood_unhappy
-#   - action: utter_cheer_up
-#   - action: utter_did_that_help
-#   - intent: deny
-#   - action: utter_goodbye
+# TODO: weather in the city without provding city name
 
 - story: book_a_ticket_destination_provided
   steps:
@@ -79,7 +55,6 @@ stories:
   - intent: book_a_ticket
   - slot_was_set: 
     - destination: London
-  # - action: utter_booking
 
 
 - story: book_a_ticket_destination_provided

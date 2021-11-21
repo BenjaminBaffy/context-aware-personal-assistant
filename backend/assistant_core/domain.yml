@@ -2,6 +2,7 @@ version: "2.0"
 
 intents:
   - greet
+  - intro
   - goodbye
   - affirm
   - deny
@@ -60,10 +61,16 @@ slots:
     - __other__
 
 responses:
-  utter_greet:
-  - text: "Hey {name}! How are you?"
+  utter_intro:
+  - text: "Hey {name}! \nHow are you?"
   - text: "Hello {name}"
-  - text: "Hi {name}. How can I help?"
+  - text: "Hi {name}. \nHow can I help?"
+
+  utter_greet:
+  - text: "Hey"
+  - text: "Hello"
+  - text: "Hi! \nHow can I help?"
+
 
   utter_ask_city:
   - text: In which Hungarian city?
@@ -92,8 +99,12 @@ responses:
   utter_tell_a_joke:
   - text: "What is the best thing about Switzerland? I don't know but the flag is a big plus."
   - text: "I invented a new word. Plagiarism!"
-  - text: "What is a hardware? \n A part of computer which you can actually kick"
-  - text: "Why Java programmers wear glasses? \n \n Because they don't C#"
+  - text: "What is a hardware? \n\n A part of computer which you can actually kick"
+  - text: "Chuck Norris can take screenshot of his bluescreen"
+  - text: "What time is it when the clock strikes 13? \n\nTime to get a new clock."
+  - text: "What's red and bad for your teeth? \n\nA brick"
+  - text: "I just got my doctor's test results and I'm really upset.\n\n Turns out, I'm not gonna be a doctor."
+  - text: "Chuck Norris writes code that optimizes itself"
 
   utter_goodbye:
   - text: "Bye"
