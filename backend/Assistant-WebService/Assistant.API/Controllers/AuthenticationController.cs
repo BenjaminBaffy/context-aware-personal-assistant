@@ -50,6 +50,7 @@ namespace Assistant.API.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status204NoContent)] // workaround
         public async Task<IActionResult> Logout(CancellationToken cancellationToken)
         {
             // TODO: do we need to do something explicitly?

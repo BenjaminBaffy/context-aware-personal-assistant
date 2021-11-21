@@ -49,8 +49,8 @@ namespace Assistant.Application.Services.Authentication
                 return null;
             }
 
-            if (user == null || userList.Count > 0)
-                _logger.LogWarning($"User count is :{userList.Count}");
+            if (user == null || userList.Count > 1)
+                _logger.LogWarning($"User count is not exactly 1, it is :'{userList.Count}'");
 
             return user;
         }

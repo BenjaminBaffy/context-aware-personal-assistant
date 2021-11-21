@@ -41,7 +41,7 @@ namespace Assistant.API
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Sid, accessToken.UserId, ClaimValueTypes.String),
-                new Claim(ClaimTypes.Name, accessToken.LoginName, ClaimValueTypes.String),
+                new Claim(ClaimTypes.Name, accessToken.FullName, ClaimValueTypes.String),
                 new Claim(ClaimTypes.Expiration, accessToken.ExpiresAt.ToString(CultureInfo.InvariantCulture), ClaimValueTypes.DateTime)
             };
 

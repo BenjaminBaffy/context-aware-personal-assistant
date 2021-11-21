@@ -29,7 +29,6 @@ namespace Assistant.API.Controllers
             _currentUserAccessor = currentUserAccessor;
         }
 
-        [Authorize]
         [HttpPost("sendmessage")]
         [ProducesResponseType(typeof(BotResponseViewModel), StatusCodes.Status200OK)]
         public async Task<ActionResult<BotResponseViewModel>> SendMessage([FromBody] BotMessageViewModel botMessage)
@@ -44,7 +43,8 @@ namespace Assistant.API.Controllers
         }
 
         [HttpGet("health")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status204NoContent)] // not exactly true
         public async Task<ActionResult<HttpResponseMessage>> HealthCheck()
         {
             var response = await _rasaHttpService.GetHealthCheck();

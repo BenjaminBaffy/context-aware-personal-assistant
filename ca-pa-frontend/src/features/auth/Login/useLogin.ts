@@ -12,7 +12,7 @@ const useLogin = () => {
 
     useEffect(() => {
         dispatch(authActions.setUser(loggedInUser))
-        dispatch(authActions.setLoggedIn(loggedInUser.name !== null))
+        dispatch(authActions.setLoggedIn(loggedInUser.name !== undefined))
     }, [dispatch, loggedInUser]);
 }
 

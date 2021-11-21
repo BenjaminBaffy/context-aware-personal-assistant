@@ -118,7 +118,7 @@
       "checksumCacheEnabled": false,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "../../../ca-pa-frontend/src/services/api/_generated/test-generated-axios-backend-api.ts",
+      "output": "../../../ca-pa-frontend/src/services/api/_generated/generatedBackendApi.ts",
       "newLineBehavior": "Auto"
     }
   }

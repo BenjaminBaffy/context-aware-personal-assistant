@@ -45,7 +45,7 @@ namespace Assistant.Application.Services.Authentication
             var token = new AccessToken
             {
                 UserId = user.Id,
-                LoginName = user.LoginName,
+                FullName = user.FullName,
                 ExpiresAt = expiresAt
             };
 
