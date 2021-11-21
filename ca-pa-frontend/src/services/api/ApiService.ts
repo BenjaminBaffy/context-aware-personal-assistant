@@ -112,13 +112,13 @@ async function send({
     config.data = null;
   }
 
-  const userDetails = localStorage.get(LocalStorageKey.UserDetails) as PasswordLoginResponseViewModel;
+  const accessToken = localStorage.get(LocalStorageKey.AccessToken);
 
-  if (userDetails && userDetails.accessToken) {
+  if (accessToken) {
     if (!config.headers) {
       config.headers = {};
     }
-    config.headers.Authorization = `Bearer ${userDetails.accessToken}`;
+    config.headers.Authorization = `Bearer ${accessToken}`;
   }
 
   return axiosInstance
