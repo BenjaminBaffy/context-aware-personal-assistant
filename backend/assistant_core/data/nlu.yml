@@ -128,6 +128,13 @@ nlu:
     - how is the weather in [London](city)?
 
 
+- intent: weather
+  examples: |
+    - what is the weather
+    - how is the weather
+    - tell me how is the weather
+    - weather
+
   # questions about what can I do
 - intent: capabilities
   examples: |

@@ -46,7 +46,15 @@ stories:
   - intent: weather_in_city
   - action: action_wx
 
-# TODO: weather in the city without provding city name
+- story: wx_2
+  steps:
+  - intent: weather
+  - action: action_wx
+
+- story: add_grocery
+  steps:
+  - intent: add_grocery
+  - action: utter_grocery
 
 - story: book_a_ticket_destination_provided
   steps:

@@ -14,6 +14,7 @@ intents:
   - buy_groceries
   - wants_a_joke
   - weather_in_city
+  - weather
 
 
 entities: 
@@ -71,6 +72,8 @@ responses:
   - text: "Hello"
   - text: "Hi! \nHow can I help?"
 
+  utter_grocery:
+  - text: "Items in your grocery are: {items}"
 
   utter_ask_city:
   - text: In which Hungarian city?
