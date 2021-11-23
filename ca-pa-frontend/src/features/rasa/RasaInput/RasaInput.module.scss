@@ -1,6 +1,11 @@
 .container {
     position: relative;
     display: inline-block;
+    width: 100%;
+}
+
+.iconContainer {
+    margin-right: 10px;
 }
 
 .container .icon {
@@ -8,36 +13,44 @@
     font-size: 24px;
 }
 
-.container .inputpopup {
+.inputContainer {
     visibility: hidden;
-    min-width: 28rem;
-    // width: auto;
+    width: 30rem;
     background-color: black;
     color: #fff;
     text-align: center;
     border-radius: 14px;
-    border-bottom-left-radius: 0;
     padding: 5px 0;
-    padding-right: 5px;
-    margin-left: 1rem;
+    padding-right: 8px;
     box-shadow: 0 5px 10px 2px rgba($color: #000000, $alpha: 0.2);
-
+    // animation: expand 1s infinite;
 }
 
 .hover {
     /* Position the tooltip */
     position: absolute;
     z-index: 1;
-    top: -1rem;
-    left: 125%;
+    max-width: 40ch;
+    left: -2rem;
+    animation: expand 1s;
+    transform: translate(-50%, -130%);
+}
+
+@keyframes expand {
+    from {
+        width: 0rem;
+    }
+    to {
+        width: 40ch;
+    }
 }
 
 .inputfield {
     color: white;
     border-radius: 10px;
-    // border-bottom-left-radius: 0;
     background-color: transparent;
     border: none !important;
+    box-shadow: none !important;
     width: 100%;
 }
 
@@ -47,10 +60,19 @@
 }
 
 .inline {
+    // position: absolute;
     top: 0 !important;
+    left: 3rem;
     border-radius: 14px !important;
 }
 
 .sendIcon {
-    border-radius: 14px;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .inputContainer {
+        width: 13rem;
+    }
 }

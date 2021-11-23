@@ -7,41 +7,58 @@ import useRasa from '../useRasa'
 import styles from './RasaInput.module.scss'
 
 interface IRasaInputProps {
+    icon?: React.ReactElement;
     inline?: boolean;
     children?: React.ReactElement | React.ReactElement[] | string;
+    [x: string]: any;
 }
 
-const RasaInput: React.FC<IRasaInputProps> = ({ inline, children }) => {
+const RasaInput: React.FC<IRasaInputProps> = ({ icon, inline, children, ...rest }) => {
     const [dialogOpen, setDialogOpen] = useState<boolean>(false)
+    const [key, setKey] = useState<number>(Math.random())
     const { submitCommand, speak, textToSend, setTextToSend } = useRasa()
     // const [inputText]
 
     // if not inline
     const openDialog = useCallback(() => {
-        !inline && setDialogOpen(x => !x)
+        if (!inline) {
+            setDialogOpen(x => !x)
+            setKey(Math.random())
+        }
         speak()
     }, [inline, speak])
 
     const send = useCallback((e: any) => {
         e.preventDefault()
         submitCommand(textToSend)
-    }, [submitCommand, textToSend])
+        if (!inline) {
+            setDialogOpen(false)
+        }
+    }, [submitCommand, textToSend, inline])
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container} {...rest}>
             {/* {children} */}
-            <Row align="top">
+            <Row align="top" justify="center">
                 <Col>
-                    <Microphone className={styles.icon} onClick={openDialog} />
+                    <div className={styles.iconContainer}>
+                        <div className={styles.icon} onClick={openDialog}>
+                            {icon || <Microphone className={styles.icon} />}
+                        </div>
+                    </div>
                 </Col>
                 <Col>
-                    <div className={classNames(styles.inputpopup, { [styles.visible]: inline || dialogOpen, [styles.inline]: inline })}>
+                    <div key={key} className={classNames(styles.inputContainer, { [styles.visible]: inline || dialogOpen, [styles.inline]: inline, [styles.hover]: !inline })}>
                         <Row justify="space-between">
-                            <Col span={21}>
+                            <Col span={20}>
                                 <Input className={styles.inputfield} onPressEnter={send} value={textToSend} onChange={(e: any) => setTextToSend(e.target.value)} />
                             </Col>
-                            <Col span={2}>
-                                <Button className={styles.sendIcon} onClick={send} htmlType="submit" icon={<SendOutlined />} />
+                            <Col span={4}>
+                                <Row justify="end">
+                                    <Col>
+                                        <Button className={styles.sendIcon} onClick={send} htmlType="submit" icon={<SendOutlined />} />
+                                    </Col>
+                                </Row>
                             </Col>
                         </Row>
                     </div>

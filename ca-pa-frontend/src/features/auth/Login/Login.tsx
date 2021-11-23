@@ -4,6 +4,7 @@ import useLogin from './useLogin'
 
 import styles from './Login.module.scss'
 import Microphone from '../../../components/Microphone/Microphone'
+import RasaInput from '../../rasa/RasaInput/RasaInput'
 
 // How to Persist a Logged-in User in React
 // https://www.freecodecamp.org/news/how-to-persist-a-logged-in-user-in-react/
@@ -26,9 +27,9 @@ const Login = () => {
                                         <Col>
                                             <h1 className={styles.title}>Sign in</h1>
                                         </Col>
-                                        <Col>
-                                            <Microphone />
-                                        </Col>
+                                        {/* <Col>
+                                            <RasaInput icon={<Microphone className={styles.rasaIcon} />} />
+                                        </Col> */}
                                     </Row>
 
                                 </Col>

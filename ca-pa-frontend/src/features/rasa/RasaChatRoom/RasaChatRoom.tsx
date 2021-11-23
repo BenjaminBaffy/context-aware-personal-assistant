@@ -1,6 +1,6 @@
 import { CloseOutlined } from '@ant-design/icons'
 import { Button, Col, Row, Spin, Switch } from 'antd'
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import ErrorDisplay from '../../../components/ErrorDisplay/ErrorDisplay'
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
@@ -42,6 +42,19 @@ const RasaChatRoom = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lastCommand])
 
+    const spinner = useMemo(() => {
+        return ( loading ?
+            <Row style={{ marginLeft: '1.5rem' }}>
+                <Col>
+                    <pre>{"Rasa is typing..."}</pre>
+                </Col>
+                <Col className={styles.spin}>
+                    <Spin />
+                </Col>
+            </Row> : null
+        )
+    }, [loading])
+
     return (
         <div className={styles.container}>
             <Row justify="space-between">
@@ -58,24 +71,17 @@ const RasaChatRoom = () => {
                         {conversation.map((message: Message, i: number) => (
                             <ChatBubble key={i} away={message.user?.name !== user.name}>{message.content}</ChatBubble>
                         ))}
-                        { loading &&
-                            <Row style={{ marginLeft: '1.5rem' }}>
-                                <Col span={4}>
-                                    <pre>{"Rasa is typing..."}</pre>
-                                </Col>
-                                <Col>
-                                    <Spin />
-                                </Col>
-                            </Row>
-                        }
+                        {spinner}
                         <ErrorDisplay message={error} />
                         <div ref={lastMessageRef} />
                     </div>
                 </Col>
             </Row>
-            <Row className={styles.input} justify="center">
+            <Row justify="center">
                 <Col>
-                    <RasaInput inline />
+                    <div className={styles.input}>
+                        <RasaInput inline />
+                    </div>
                 </Col>
             </Row>
         </div>
