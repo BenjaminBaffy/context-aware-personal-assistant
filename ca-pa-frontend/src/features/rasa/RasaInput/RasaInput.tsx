@@ -1,10 +1,12 @@
+import React, { useCallback, useState } from 'react'
 import { SendOutlined } from '@ant-design/icons'
 import { Button, Col, Input, Row } from 'antd'
 import classNames from 'classnames'
-import React, { useCallback, useState } from 'react'
+
 import Microphone from '../../../components/Microphone/Microphone'
 import useRasa from '../useRasa'
 import styles from './RasaInput.module.scss'
+import { spawn } from 'child_process'
 
 interface IRasaInputProps {
     icon?: React.ReactElement;
@@ -16,17 +18,15 @@ interface IRasaInputProps {
 const RasaInput: React.FC<IRasaInputProps> = ({ icon, inline, children, ...rest }) => {
     const [dialogOpen, setDialogOpen] = useState<boolean>(false)
     const [key, setKey] = useState<number>(Math.random())
-    const { submitCommand, speak, textToSend, setTextToSend } = useRasa()
-    // const [inputText]
+    const { submitCommand, speak, endSpeak, textToSend, setTextToSend, listening } = useRasa()
 
-    // if not inline
-    const openDialog = useCallback(() => {
+    const handleMicClick = useCallback(() => {
         if (!inline) {
             setDialogOpen(x => !x)
             setKey(Math.random())
         }
-        speak()
-    }, [inline, speak])
+        !listening ? speak() : endSpeak()
+    }, [inline, speak, endSpeak, listening])
 
     const send = useCallback((e: any) => {
         e.preventDefault()
@@ -42,8 +42,8 @@ const RasaInput: React.FC<IRasaInputProps> = ({ icon, inline, children, ...rest 
             <Row align="top" justify="center">
                 <Col>
                     <div className={styles.iconContainer}>
-                        <div className={styles.icon} onClick={openDialog}>
-                            {icon || <Microphone className={styles.icon} />}
+                        <div className={styles.icon} onClick={handleMicClick}>
+                            {icon || <Microphone className={classNames(styles.icon, { [styles.listening]: listening })} />}
                         </div>
                     </div>
                 </Col>
@@ -64,6 +64,7 @@ const RasaInput: React.FC<IRasaInputProps> = ({ icon, inline, children, ...rest 
                     </div>
                 </Col>
             </Row>
+            {listening && <span>Speak slowly!</span>}
         </div>
     )
 }
