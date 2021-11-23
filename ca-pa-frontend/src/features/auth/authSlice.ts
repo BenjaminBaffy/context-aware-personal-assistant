@@ -1,8 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import User from '../../models/User'
-import { localStorage, LocalStorageKey } from '../../services/persistance/localStorage'
-import { AppThunk } from '../../store/store'
-import delay from '../../utils/delay'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import User from "../../models/User";
+import {
+    localStorage,
+    LocalStorageKey,
+} from "../../services/persistance/localStorage";
+import { AppThunk } from "../../store/store";
+import delay from "../../utils/delay";
 
 interface AuthState {
     accessToken: string | null;
@@ -28,21 +31,21 @@ const initialState: AuthState = {
 };
 
 export const authSlice = createSlice({
-    name: 'auth',
+    name: "auth",
     initialState,
     reducers: {
         setLoading: (state, action: PayloadAction<boolean>) => {
-            state.loading = action.payload
+            state.loading = action.payload;
         },
         setError: (state, action: PayloadAction<string>) => {
-            state.error = action.payload
+            state.error = action.payload;
         },
-        loginSuccess: (state) => {
-            state.loggedIn = true
-            state.error = undefined
+        loginSuccess: state => {
+            state.loggedIn = true;
+            state.error = undefined;
         },
         setLoggedIn: (state, action: PayloadAction<boolean>) => {
-            state.loggedIn = action.payload
+            state.loggedIn = action.payload;
         },
         setUser: (state, action) => {
             state.user = action.payload;
@@ -53,47 +56,43 @@ export const authSlice = createSlice({
     },
 });
 
-const {
-    setLoading,
-    setError,
-    setLoggedIn,
-    loginSuccess,
-    setUser,
-    resetUser,
-} = authSlice.actions;
+const { setLoading, setError, setLoggedIn, loginSuccess, setUser, resetUser } =
+    authSlice.actions;
 
-const login = (credentials: { username: string, password: string }): AppThunk => async (dispatch, getState) => {
-    const { username, password } = credentials
+const login =
+    (credentials: { username: string; password: string }): AppThunk =>
+    async (dispatch, getState) => {
+        const { username, password } = credentials;
 
-    const { user } = getState().auth
+        const { user } = getState().auth;
 
-    try {
-        dispatch(setLoading(true))
+        try {
+            dispatch(setLoading(true));
 
-        // verify user + passwd
+            // verify user + passwd
 
-        const responseMock = {
-            ...user,
-            userId: '45faf31-53eg3h2-2eq3h53',
-            name: username,
+            const responseMock = {
+                ...user,
+                userId: "45faf31-53eg3h2-2eq3h53",
+                name: username,
+            };
+
+            const apiCallMock = async () => {
+                return await delay(responseMock, 1200);
+            };
+
+            const response = await apiCallMock();
+
+            dispatch(setUser(response));
+            localStorage.set(LocalStorageKey.UserDetails, response);
+
+            dispatch(loginSuccess());
+        } catch (e: any) {
+            dispatch(setError(e.toString()));
+        } finally {
+            dispatch(setLoading(false));
         }
-
-        const apiCallMock = async () => {
-            return await delay(responseMock, 1200)
-        }
-
-        const response = await apiCallMock()
-
-        dispatch(setUser(response))
-        localStorage.set(LocalStorageKey.UserDetails, response)
-
-        dispatch(loginSuccess())
-    } catch(e: any) {
-        dispatch(setError(e.toString()))
-    } finally {
-        dispatch(setLoading(false))
-    }
-}
+    };
 
 const logout = (): AppThunk => async (dispatch, getState) => {
     try {
@@ -101,14 +100,14 @@ const logout = (): AppThunk => async (dispatch, getState) => {
         // ...
 
         // clear localStorage
-        localStorage.set(LocalStorageKey.UserDetails, initialState.user)
-        dispatch(resetUser())
-    } catch(e: any) {
-        dispatch(setError(e.toString()))
+        localStorage.set(LocalStorageKey.UserDetails, initialState.user);
+        localStorage.set(LocalStorageKey.Conversation, []);
+        dispatch(resetUser());
+    } catch (e: any) {
+        dispatch(setError(e.toString()));
     } finally {
-
     }
-}
+};
 
 export const authActions = {
     setLoading,
@@ -119,6 +118,6 @@ export const authActions = {
     resetUser,
     login,
     logout,
-}
+};
 
 export default authSlice.reducer;
