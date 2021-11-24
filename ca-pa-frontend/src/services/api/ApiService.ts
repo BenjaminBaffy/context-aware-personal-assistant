@@ -1,7 +1,8 @@
 import { CommonError } from '../../errors/common.error'
 import axios, { AxiosRequestConfig, AxiosInstance } from 'axios'
 import qs from 'qs'
-import { RasaClient } from './_generated/test-generated-axios-backend-api'
+import { AuthenticationClient, PasswordLoginResponseViewModel, RasaClient } from './_generated/generatedBackendApi'
+import { LocalStorageKey, localStorage } from '../persistance/localStorage';
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
@@ -13,6 +14,7 @@ const axiosInstance: AxiosInstance = axios.create({
 });
 
 export const rasaClient = new RasaClient(undefined, axiosInstance)
+export const authenticationClient = new AuthenticationClient(undefined, axiosInstance);
 
 export const setAccessToken = (token: string) => {
   axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
@@ -23,6 +25,15 @@ axiosInstance.interceptors.request.use(
   function (config) {
     // Do something before request is sent
     console.log(config);
+
+    const accessToken = localStorage.get(LocalStorageKey.AccessToken);
+
+    if (accessToken) {
+      if (!config.headers) {
+        config.headers = {};
+      }
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
 
     return config;
   },
@@ -101,10 +112,14 @@ async function send({
     config.data = null;
   }
 
-  // const token = localStorage.getItem('accessToken');
-  // if (token) {
-  //   config.headers.Authorization = `Bearer ${token}`;
-  // }
+  const accessToken = localStorage.get(LocalStorageKey.AccessToken);
+
+  if (accessToken) {
+    if (!config.headers) {
+      config.headers = {};
+    }
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
 
   return axiosInstance
     .request(config)

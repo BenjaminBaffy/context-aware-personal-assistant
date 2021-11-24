@@ -1,5 +1,5 @@
 import { rasaClient } from "./ApiService"
-import { BotMessageViewModel } from "./_generated/test-generated-axios-backend-api"
+import { BotMessageViewModel } from "./_generated/generatedBackendApi"
 
 const RasaService = {
     send: (message: string) => rasaClient.sendMessage(new BotMessageViewModel({

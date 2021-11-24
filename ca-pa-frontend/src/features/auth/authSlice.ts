@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import AuthService from '../../services/api/AuthService';
 import { localStorage, LocalStorageKey } from '../../services/persistance/localStorage'
 import { AppThunk } from '../../store/store'
 
 interface AuthState {
-    accessToken: string | null;
+    accessToken: string | undefined;
 
     user: {
-        name: string | null;
+        name: string | undefined;
         userId: string;
         roles: [];
     };
@@ -17,10 +18,10 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-    accessToken: null,
+    accessToken: undefined,
 
     user: {
-        name: null,
+        name: undefined,
         userId: '',
         roles: [],
     },
@@ -50,6 +51,9 @@ export const authSlice = createSlice({
         setUser: (state, action) => {
             state.user = action.payload;
         },
+        setAccessToken: (state, action: PayloadAction<string | undefined>) => {
+            state.accessToken = action.payload;
+        },
         resetUser: () => {
             return initialState;
         },
@@ -62,6 +66,7 @@ const {
     setLoggedIn,
     loginSuccess,
     setUser,
+    setAccessToken,
     resetUser,
 } = authSlice.actions;
 
@@ -71,16 +76,18 @@ const login = (credentials: { username: string, password: string }): AppThunk =>
     try {
         dispatch(setLoading(true))
 
-        // verify user + passwd
-        // const response = await ...
-        const response = {
-            name: username,
-            userId: 'id',
-            roles: [],
+        const response = await AuthService.login(username, password)
+
+        const user = {
+            name: response.fullName,
+            userId: '',
+            roles: []
         }
 
-        dispatch(setUser(response))
-        localStorage.set(LocalStorageKey.UserDetails, response)
+        dispatch(setUser(user))
+        dispatch(setAccessToken(response.accessToken))
+        localStorage.set(LocalStorageKey.UserDetails, user)
+        localStorage.set(LocalStorageKey.AccessToken, response.accessToken)
 
         dispatch(loginSuccess())
     } catch(e: any) {
@@ -97,8 +104,11 @@ const logout = (): AppThunk => async (dispatch, getState) => {
 
         // clear localStorage
         localStorage.set(LocalStorageKey.UserDetails, initialState.user)
+        localStorage.remove(LocalStorageKey.AccessToken)
 
         dispatch(resetUser())
+        dispatch(setAccessToken(undefined))
+        dispatch(setLoggedIn(false))
     } catch(e: any) {
         dispatch(setError(e.toString()))
     } finally {
