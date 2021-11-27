@@ -11,7 +11,7 @@ intents:
   - bot_challenge
   - capabilities
   - book_a_ticket
-  - buy_groceries
+  - add_grocery
   - wants_a_joke
   - weather_in_city
   - weather
