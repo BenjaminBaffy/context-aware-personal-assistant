@@ -33,3 +33,26 @@ class Weather(Action):
         response = "The current temperature in {} is {}C. It is {}".format(city, temp, description)
 
         return dispatcher.utter_message(response)
+
+class Grocery(Action):
+
+    def name(self) -> Text:
+        return "action_ls_gr"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        groceries = tracker.get_slot('items')
+
+        if groceries:
+            groceries_str = '\n '.join(groceries)
+            response = f"Items in your grocery list: \n{groceries_str}"
+        
+        else: 
+            response = "Currently your grocery list is empty. \nAdd something"
+
+        return dispatcher.utter_message(response)
+
+
+# TODO: Removing groceries action

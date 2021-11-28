@@ -54,20 +54,9 @@ stories:
 - story: add_grocery
   steps:
   - intent: add_grocery
-  - action: utter_grocery
+  - action: action_ls_gr
 
-- story: book_a_ticket_destination_provided
+- story: check_grocery_list
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: book_a_ticket
-  - slot_was_set: 
-    - destination: London
-
-
-- story: book_a_ticket_destination_provided
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: book_a_ticket
-  - action: utter_provide_destination
+  - intent: grocery_check
+  - action: action_ls_gr

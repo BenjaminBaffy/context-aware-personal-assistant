@@ -10,20 +10,18 @@ intents:
   - mood_unhappy
   - bot_challenge
   - capabilities
-  - book_a_ticket
   - add_grocery
+  - grocery_check
+  - remove_grocery
   - wants_a_joke
   - weather_in_city
   - weather
 
 
 entities: 
-  - destination
   - items
   - name
   - city
-  - wx_type 
-  - forecast_period
 
 
 slots: 
@@ -37,29 +35,7 @@ slots:
   city:
     type: text
     influence_conversation: true
-  forecast_period:
-    type: categorical
-    influence_conversation: true
-    values:
-    - current
-    - tomorrow
-    - today
-  requested_slot:
-    type: text
-    influence_conversation: false
-  wx_type:
-    type: categorical
-    influence_conversation: true
-    values:
-    - temperature
-    - cloud_conditions
-    - wind
-    - rain
-    - uvi
-    - pressure
-    - humid
-    - weather
-    - __other__
+
 
 responses:
   utter_intro:
@@ -74,11 +50,6 @@ responses:
 
   utter_grocery:
   - text: "Items in your grocery are: {items}"
-
-  utter_ask_city:
-  - text: In which Hungarian city?
-  - text: I know weather in Budapest, Debrecen and in Szeged, which one would you like to know?
-  - text: Which city?
 
   utter_capabilities:
   - text: I can tell the current weather and forecast for today or tomorrow. I have weather data for Auckland, Christchurch and Wellington. You can make queries about rain, wind, UV index, temperature, clouds and air pressure.
@@ -116,14 +87,12 @@ responses:
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
 
-  utter_provide_destination:
-  - text: "Please provide the destination"
-
 actions:
 - action_wx
-- utter_ask_city
 - utter_goodbye
 - utter_greet
+- action_ls_gr
+- action_rm_gr
 
 forms:
   city_form:

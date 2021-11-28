@@ -113,7 +113,16 @@ nlu:
     - I need [milk](items)
     - I need [eggs](items)
     - I need [flour](items)
+    - write [bananas](items) to my grocery shopping list
+    - write [juice](items) and [watermelon](items) to my grocery shopping list
 
+- intent: grocery_check
+  examples: |
+    - What is in my grocery list
+    - Grocery Check
+    - check my grocery list
+    - what to do I need to buy
+    - which groceries am I out of?
 
 - intent: weather_in_city
   examples: |
@@ -121,7 +130,6 @@ nlu:
     - how is the weather in [Budapest](city)?
     - what is the weather in [London](city)?
     - how is the weather in [London](city)?
-
 
 - intent: weather
   examples: |
@@ -131,6 +139,16 @@ nlu:
     - weather
     - how is the temprature is like
     - temprature
+
+- intent: remove_grocery
+  examples: |
+    - remove [milk](items) and [ham](items) from my grocery list
+    - remove [chocolate](items) and [eggs](items) from my grocery list
+    - remove [flour](items) from my grocery list
+    - I don't need [milk](items) and [flour](items) anymore
+    - I don't need [chocolate](items) and [eggs](items) anymore
+    - I have already bought [tomatoes](items)
+    - I have already bought [tomatoes](items) and [eggs](items)
 
   # questions about what can I do
 - intent: capabilities
@@ -147,73 +165,11 @@ nlu:
     - help
     - can you help me
 
-# # synonym defnitions to limit variations and to help NLU
-# - synonym: current
-#   examples: |
-#     - currently
-#     - now
-#     - current
-# - synonym: today
-#   examples: |
-#     - later
-#     - today
-#     - later today
-#     - going to
-# - synonym: tomorrow
-#   examples: |
-#     - tomorrow
-# - synonym: uvi
-#   examples: |
-#     - uvi
-#     - UV
-#     - UV index
-
-# - synonym: cloud_conditions
-#   examples: |
-#     - raining
-#     - wet
-#     - rain
-#     - conditions
-#     - condition
-#     - clouds
-#     - snow
-#     - snowing
-#     - sunny
-#     - pissing
-#     - hosing
-#     - pooring
-#     - cloudy
-#     - rainy
-#     - shining
-#     - sun
-#     - rainfall
-#     - snowfall
-# - synonym: temperature
-#   examples: |
-#     - hot
-#     - cold
-#     - chilly
-#     - heat
-#     - temp
-#     - temperature
-# - synonym: wind
-#   examples: |
-#     - windy
-#     - breeze
-#     - breezy
-#     - gust
-#     - gusty
-#     - gale
-#     - wind
-
 - synonym: weather
   examples: |
     - weather
     - wx
     - forecast
     - temprature
-# - synonym: humid
-#   examples: |
-#     - humidity
-#     - humid
+
 

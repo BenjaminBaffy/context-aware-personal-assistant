@@ -1,0 +1,29 @@
+version: "2.0"
+nlu:
+  - lookup: items
+    examples: |
+      - sausage
+      - chicken
+      - chicken breast
+      - lemon
+      - apple
+      - bread
+      - fish
+      - meat
+      - pork 
+      - beef
+      - salmon
+      - tuna
+      - cereal
+      - broccoli
+      - rice
+      - wheat
+      - buckwheat
+      - bulgur
+      - noodles
+      - spaghetti
+      - protein
+      - cucumber
+      - garlic
+      - onion
+      - orange
