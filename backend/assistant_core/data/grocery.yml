@@ -2,9 +2,8 @@ version: "2.0"
 nlu:
   - lookup: items
     examples: |
-      - sausage
+      - sausages
       - chicken
-      - chicken breast
       - lemon
       - apple
       - bread

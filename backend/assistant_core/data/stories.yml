@@ -54,9 +54,14 @@ stories:
 - story: add_grocery
   steps:
   - intent: add_grocery
-  - action: action_ls_gr
+  - action: action_add_gr
 
 - story: check_grocery_list
   steps:
   - intent: grocery_check
   - action: action_ls_gr
+
+- story: remove_from_grocery_list
+  steps:
+  - intent: remove_grocery
+  - action: action_rm_gr
