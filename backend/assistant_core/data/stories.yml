@@ -46,20 +46,22 @@ stories:
   - intent: weather_in_city
   - action: action_wx
 
-# TODO: weather in the city without provding city name
-
-- story: book_a_ticket_destination_provided
+- story: wx_2
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: book_a_ticket
-  - slot_was_set: 
-    - destination: London
+  - intent: weather
+  - action: action_wx
 
-
-- story: book_a_ticket_destination_provided
+- story: add_grocery
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: book_a_ticket
-  - action: utter_provide_destination
+  - intent: add_grocery
+  - action: action_add_gr
+
+- story: check_grocery_list
+  steps:
+  - intent: grocery_check
+  - action: action_ls_gr
+
+- story: remove_from_grocery_list
+  steps:
+  - intent: remove_grocery
+  - action: action_rm_gr

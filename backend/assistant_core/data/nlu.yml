@@ -93,11 +93,6 @@ nlu:
     - so saad
     - so sad
 
-- intent: wants_a_joke
-  examples: |
-    - I wanna hear a joke
-    - Tell me a joke
-
 
 - intent: bot_challenge
   examples: |
@@ -106,19 +101,28 @@ nlu:
     - am I talking to a bot?
     - am I talking to a human?
 
-- intent: book_a_ticket
+- intent: add_grocery
   examples: |
-    - I would like to book a flight ticket to [Budapest](destination)
-    - Book me a ticket to [London](destination)
-    - I will be flying to [Berlin](destination)
-    - I need to book a ticket for [Vienne](destination)
+    - I would like to buy [milk](items) and [chocolate](items)
+    - Add [flour](items) and [eggs] (items) to my shopping list
+    - Add [tomatoes](items) and [ham](items) to my shopping list
+    - Add [milk](items) and [chocolate](items) to my shopping list
+    - I would like to get [tomatoes](items) and [ham](items)
+    - I would like to get [milk](items) and [chocolate](items)
+    - I would like to get [flour](items) and [eggs](items)
+    - I need [milk](items)
+    - I need [eggs](items)
+    - I need [flour](items)
+    - write [bananas](items) to my grocery shopping list
+    - write [juice](items) and [watermelon](items) to my grocery shopping list
 
-- intent: buy_groceries
+- intent: grocery_check
   examples: |
-    - I would like to buy [milk] (items), [cookies] (items) and [chocolate] (items)
-    - Add [flour] (items) and [eggs] (items) to my shopping list
-    - I would like to get [tomatoes] (items) and [ham](items)
-
+    - What is in my grocery list
+    - Grocery Check
+    - check my grocery list
+    - what to do I need to buy
+    - which groceries am I out of?
 
 - intent: weather_in_city
   examples: |
@@ -127,6 +131,24 @@ nlu:
     - what is the weather in [London](city)?
     - how is the weather in [London](city)?
 
+- intent: weather
+  examples: |
+    - what is the weather
+    - how is the weather
+    - tell me how is the weather
+    - weather
+    - how is the temprature is like
+    - temprature
+
+- intent: remove_grocery
+  examples: |
+    - remove [milk](items) and [ham](items) from my grocery list
+    - remove [chocolate](items) and [eggs](items) from my grocery list
+    - remove [flour](items) from my grocery list
+    - I don't need [milk](items) and [flour](items) anymore
+    - I don't need [chocolate](items) and [eggs](items) anymore
+    - I have already bought [tomatoes](items)
+    - I have already bought [tomatoes](items) and [eggs](items)
 
   # questions about what can I do
 - intent: capabilities
@@ -143,83 +165,11 @@ nlu:
     - help
     - can you help me
 
-# synonym defnitions to limit variations and to help NLU
-- synonym: current
-  examples: |
-    - currently
-    - now
-    - current
-- synonym: today
-  examples: |
-    - later
-    - today
-    - later today
-    - going to
-- synonym: tomorrow
-  examples: |
-    - tomorrow
-- synonym: uvi
-  examples: |
-    - uvi
-    - UV
-    - UV index
-
-- synonym: cloud_conditions
-  examples: |
-    - raining
-    - wet
-    - rain
-    - conditions
-    - condition
-    - clouds
-    - snow
-    - snowing
-    - sunny
-    - pissing
-    - hosing
-    - pooring
-    - cloudy
-    - rainy
-    - shining
-    - sun
-    - rainfall
-    - snowfall
-- synonym: temperature
-  examples: |
-    - hot
-    - cold
-    - chilly
-    - heat
-    - temp
-    - temperature
-- synonym: wind
-  examples: |
-    - windy
-    - breeze
-    - breezy
-    - gust
-    - gusty
-    - gale
-    - wind
-
 - synonym: weather
   examples: |
     - weather
     - wx
     - forecast
-- synonym: humid
-  examples: |
-    - humidity
-    - humid
-- synonym: Budapest
-  examples: |
-    - Budapest
-    - budapest
-- synonym: Debrecen
-  examples: |
-    - Debrecen
-    - debrecen
-- synonym: Szeged
-  examples: |
-    - Szeged
-    - szeged
+    - temprature
+
+
