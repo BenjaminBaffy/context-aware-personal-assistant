@@ -1,0 +1,43 @@
+.container {
+    position: relative;
+    place-items: center;
+    width: 100%;
+    font-family: sans-serif;
+    padding: 5rem 3rem;
+}
+
+.content {
+    padding: 4rem 5rem;
+    background-color: rgba(233, 233, 233, 0.514);
+    border-radius: 20px;
+}
+
+.greet {
+    font-size: 60px;
+    font-weight: 700;
+    overflow-wrap: break-word;
+    margin-bottom: 1.7rem;
+}
+
+.name {
+    color: #af3bcc;
+}
+
+.description {
+    // max-width: 100ch;
+}
+
+.footer {
+    color: lightgray;
+    font-style: italic;
+}
+
+@media screen and (max-width: 1200px) {
+    .content {
+        padding: 1rem 2rem; // 0 10px
+    }
+
+    .greet {
+        font-size: 32px;
+    }
+}
