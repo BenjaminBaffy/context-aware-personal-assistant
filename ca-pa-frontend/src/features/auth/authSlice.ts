@@ -4,25 +4,24 @@ import {
     localStorage,
     LocalStorageKey,
 } from "../../services/persistance/localStorage";
-import { AppThunk } from "../../store/store";
-import delay from "../../utils/delay";
+import AuthService from '../../services/api/AuthService';
+import { AppThunk } from '../../store/store'
 
 interface AuthState {
-    accessToken: string | null;
-
+    accessToken: string | undefined;
     user: User;
-
     loggedIn: boolean;
     loading: boolean;
     error?: string;
 }
 
 const initialState: AuthState = {
-    accessToken: null,
+    accessToken: undefined,
 
     user: {
         name: null,
-        userId: null,
+        userId: undefined,
+        roles: [],
     },
 
     loggedIn: false,
@@ -50,49 +49,68 @@ export const authSlice = createSlice({
         setUser: (state, action) => {
             state.user = action.payload;
         },
+        setAccessToken: (state, action: PayloadAction<string | undefined>) => {
+            state.accessToken = action.payload;
+        },
         resetUser: () => {
             return initialState;
         },
     },
 });
 
-const { setLoading, setError, setLoggedIn, loginSuccess, setUser, resetUser } =
-    authSlice.actions;
+const {
+    setLoading,
+    setError,
+    setLoggedIn,
+    loginSuccess,
+    setUser,
+    setAccessToken,
+    resetUser,
+} = authSlice.actions;
 
-const login =
-    (credentials: { username: string; password: string }): AppThunk =>
+const login = (credentials: { username: string; password: string }): AppThunk =>
     async (dispatch, getState) => {
         const { username, password } = credentials;
 
-        const { user } = getState().auth;
+    try {
+        dispatch(setLoading(true))
 
-        try {
-            dispatch(setLoading(true));
+        const response = await AuthService.login(username, password)
 
-            // verify user + passwd
-
-            const responseMock = {
-                ...user,
-                userId: "45faf31-53eg3h2-2eq3h53",
-                name: username,
-            };
-
-            const apiCallMock = async () => {
-                return await delay(responseMock, 1200);
-            };
-
-            const response = await apiCallMock();
-
-            dispatch(setUser(response));
-            localStorage.set(LocalStorageKey.UserDetails, response);
-
-            dispatch(loginSuccess());
-        } catch (e: any) {
-            dispatch(setError(e.toString()));
-        } finally {
-            dispatch(setLoading(false));
+        const user = {
+            name: response.fullName,
+            userId: '',
+            roles: []
         }
-    };
+
+        dispatch(setUser(user))
+        dispatch(setAccessToken(response.accessToken))
+        localStorage.set(LocalStorageKey.UserDetails, user)
+        localStorage.set(LocalStorageKey.AccessToken, response.accessToken)
+
+        // verify user + passwd
+        // const responseMock = {
+        //     ...user,
+        //     userId: "45faf31-53eg3h2-2eq3h53",
+        //     name: username,
+        // };
+
+        // const apiCallMock = async () => {
+        //     return await delay(responseMock, 1200);
+        // };
+
+        // const response = await apiCallMock();
+
+        // dispatch(setUser(response));
+        // localStorage.set(LocalStorageKey.UserDetails, response);
+
+        dispatch(loginSuccess());
+    } catch (e: any) {
+        dispatch(setError(e.toString()));
+    } finally {
+        dispatch(setLoading(false));
+    }
+};
 
 const logout = (): AppThunk => async (dispatch, getState) => {
     try {
@@ -100,11 +118,15 @@ const logout = (): AppThunk => async (dispatch, getState) => {
         // ...
 
         // clear localStorage
-        localStorage.set(LocalStorageKey.UserDetails, initialState.user);
+        localStorage.set(LocalStorageKey.UserDetails, initialState.user)
         localStorage.set(LocalStorageKey.Conversation, []);
-        dispatch(resetUser());
-    } catch (e: any) {
-        dispatch(setError(e.toString()));
+        localStorage.remove(LocalStorageKey.AccessToken)
+
+        dispatch(resetUser())
+        dispatch(setAccessToken(undefined))
+        dispatch(setLoggedIn(false))
+    } catch(e: any) {
+        dispatch(setError(e.toString()))
     } finally {
     }
 };

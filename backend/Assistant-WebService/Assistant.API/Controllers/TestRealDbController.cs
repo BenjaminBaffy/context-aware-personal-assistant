@@ -2,9 +2,11 @@ using System.Threading.Tasks;
 using Assistant.Application.Interfaces;
 using Assistant.Domain.Database;
 using Microsoft.AspNetCore.Mvc;
+using NSwag.Annotations;
 
 namespace Assistant.API.Controllers
 {
+    [OpenApiIgnore]
     [ApiController]
     [Route("api/test-realdb")]
     public class TestRealDbController : Controller

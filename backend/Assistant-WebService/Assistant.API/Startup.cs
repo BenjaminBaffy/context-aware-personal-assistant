@@ -1,18 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Assistant.Application.Interfaces;
+using Assistant.Application.Interfaces.Authentication;
 using Assistant.Application.Services;
+using Assistant.Application.Services.Authentication;
 using Assistant.Domain.Configuration;
+using Assistant.Domain.Configuration.Options;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NSwag;
+using NSwag.Generation.Processors.Security;
 
 namespace Assistant.API
 {
@@ -36,8 +39,20 @@ namespace Assistant.API
                 c.DocumentName = "v1";
                 c.Title = "Context Aware Personal Assistant BackEnd";
                 c.Version = "0.1";
+                c.AddSecurity("Bearer token", 
+                    new OpenApiSecurityScheme
+                    {
+                        Type = OpenApiSecuritySchemeType.Http,
+                        Scheme = "Bearer",
+                        In = OpenApiSecurityApiKeyLocation.Header,
+                        Name = "Authorization",
+                        Description = "Add your token here"
+                    });
+
+                c.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("Bearer token"));
             });
 
+            // OLD ways
             // services.AddOpenApiDocument(c =>
             // {
             //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Assistant.API", Version = "v1" });
@@ -47,10 +62,27 @@ namespace Assistant.API
             services.AddScoped(typeof(IDatabaseService<>), typeof(DatabaseService<>));
 
             services.AddOptions();
-
             services.Configure<ApplicationConfiguration>(Configuration.GetSection(nameof(ApplicationConfiguration)));
+            services.Configure<AuthenticationConfiguration>(Configuration.GetSection(nameof(AuthenticationConfiguration)));
+
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ITokenBuilder, TokenBuilder>();
+            services.AddSingleton<IEncryption, AesEncryption>();
+            services.AddSingleton<Sha512Helper>();
 
             services.AddHttpClient<IRasaHttpService, RasaHttpService>(); // Adds a DI registration where a HttpClient is injected
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<ICurrentUserAccessor, CurrentUserAccessor>();
+
+            services.AddAuthentication(o =>
+                {
+                    o.DefaultScheme = nameof(CustomAuthenticationHandler);
+                    o.DefaultChallengeScheme = nameof(CustomAuthenticationHandler);
+                })
+                .AddScheme<AuthenticationSchemeOptions, CustomAuthenticationHandler>(nameof(CustomAuthenticationHandler), o => { });
+
+            services.AddAuthorization();
 
             services.AddCors(options =>
             {
@@ -76,7 +108,7 @@ namespace Assistant.API
 
                 app.UseOpenApi(); // serve OpenAPI/Swagger documents
                 app.UseSwaggerUi3(); // serve Swagger UI
-                app.UseReDoc(); // serve ReDoc UI
+                app.UseReDoc(c => c.Path = "/swaggerredoc"); // serve ReDoc UI (Looks fancy :) )
             }
 
             // app.UseHttpsRedirection();
@@ -85,7 +117,8 @@ namespace Assistant.API
 
             app.UseCors();
 
-            // app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

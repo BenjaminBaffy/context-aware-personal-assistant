@@ -2,10 +2,17 @@ version: "2.0"
 
 stories:
 
-- story: happy path
+- story: happy path 1
   steps:
   - intent: greet
   - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: happy path 2
+  steps:
+  - intent: intro
+  - action: utter_intro
   - intent: mood_great
   - action: utter_happy
 
@@ -39,52 +46,22 @@ stories:
   - intent: weather_in_city
   - action: action_wx
 
-# - story: wx_2
-#   steps:
-#   - intent: weather_without_city
-#   - action: city_form
-#   - action: action_wx
-
-
-# # just in case some one asks - who are you...
-# - story: who_are_you
-#   steps:
-#   - intent: who_are_you
-#   - action: utter_im_rasa
-
-# - story: sad path 2
-#   steps:
-#   - intent: greet
-#   - action: utter_greet
-#   - intent: mood_unhappy
-#   - action: utter_cheer_up
-#   - action: utter_did_that_help
-#   - intent: affirm
-#   - action: utter_happy
-
-# - story: sad path 3
-#   steps:
-#   - intent: greet
-#   - action: utter_greet
-#   - intent: mood_unhappy
-#   - action: utter_cheer_up
-#   - action: utter_did_that_help
-#   - intent: deny
-#   - action: utter_goodbye
-
-- story: book_a_ticket_destination_provided
+- story: wx_2
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: book_a_ticket
-  - slot_was_set: 
-    - destination: London
-  # - action: utter_booking
+  - intent: weather
+  - action: action_wx
 
-
-- story: book_a_ticket_destination_provided
+- story: add_grocery
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: book_a_ticket
-  - action: utter_provide_destination
+  - intent: add_grocery
+  - action: action_add_gr
+
+- story: check_grocery_list
+  steps:
+  - intent: grocery_check
+  - action: action_ls_gr
+
+- story: remove_from_grocery_list
+  steps:
+  - intent: remove_grocery
+  - action: action_rm_gr

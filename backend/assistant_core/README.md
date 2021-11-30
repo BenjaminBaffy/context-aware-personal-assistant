@@ -1,6 +1,8 @@
-# Assistnat core module with Rasa
+# Assistant core module with Rasa
 
-## Install
+## Setup virtual environment
+
+### Windows/Linux
 
 Install miniconda from with the [installers](https://docs.conda.io/en/latest/miniconda.html).
 
@@ -8,11 +10,36 @@ RUN `conda env create -n capa python=3.8`
 
 RUN `conda activate capa`
 
+
+### macOS
+
+1. Install `miniconda` with Homebrew
+
+`$ brew install --cask miniconda`
+
+2. Create virtual python environment
+
+`$ conda create -n capa python=3.8`
+
+4. If it's your first time with conda, initialize your shell:
+
+`$ conda init <YOUR-SHELL-NAME>` (i.e.: `$ conda init zsh`)
+
+5. Activate venv
+
+`$ conda activate capa`
+
+6. \+ Maybe you don't want to auto-enable the base conda venv
+
+`$ conda config --set auto_activate_base false`
+
+
+## Install
+
 RUN `pip install rasa`
 If this doesn't work out of the box, help can be:
 RUN `pip install rasa --extra-index-url https://pypi.rasa.com/simple`
 or <https://forum.rasa.com/t/rasa-x-install-stucked/39640>
-
 
 ## rasa train
 

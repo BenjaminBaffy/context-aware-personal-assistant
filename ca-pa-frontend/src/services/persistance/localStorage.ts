@@ -1,6 +1,7 @@
 export enum LocalStorageKey {
     UserDetails = "ca-pa-userDetails",
-    Conversation = 'conversation'
+    Conversation = 'conversation',
+    AccessToken = "accessToken"
 }
 
 export const localStorage = {
@@ -16,6 +17,13 @@ export const localStorage = {
         try {
             window.localStorage.setItem(key, JSON.stringify(value))
         } catch(e) {
+            console.log(e)
+        }
+    },
+    remove: (key: LocalStorageKey) => {
+        try {
+            window.localStorage.removeItem(key)
+        } catch (e) {
             console.log(e)
         }
     }

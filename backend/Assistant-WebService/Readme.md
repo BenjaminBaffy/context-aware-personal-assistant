@@ -80,3 +80,10 @@ TODO
 - How to add a new service
 - Add something to the API part
 - Registering to DI
+
+- Investigate: Use Rasa Tracker API to get / set the slots
+
+### Rasa API helpers
+
+<https://forum.rasa.com/t/is-there-any-way-to-set-slot-by-api-not-by-action/11501/5>
+<https://rasa.com/docs/rasa/next/reaching-out-to-user/> -> how to handle conversations with rasa

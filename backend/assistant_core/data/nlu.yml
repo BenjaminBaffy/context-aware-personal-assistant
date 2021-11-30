@@ -16,12 +16,16 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
+
+- intent: intro
+  examples: |
     - Hello, my name is [Elshan](name)
     - hi, I am [Elshan](name)
     - hello there, my name is [Elshan](name)
     - Hi, I am [Benny](name)
     - Hello, my name is [Benny](name)
-
+  
+    
 - intent: goodbye
   examples: |
     - good afternoon
@@ -89,11 +93,6 @@ nlu:
     - so saad
     - so sad
 
-- intent: wants_a_joke
-  examples: |
-    - I wanna hear a joke
-    - Tell me a joke
-
 
 - intent: bot_challenge
   examples: |
@@ -102,76 +101,54 @@ nlu:
     - am I talking to a bot?
     - am I talking to a human?
 
-- intent: book_a_ticket
+- intent: add_grocery
   examples: |
-    - I would like to book a flight ticket to [Budapest](destination)
-    - Book me a ticket to [London](destination)
-    - I will be flying to [Berlin](destination)
-    - I need to book a ticket for [Vienne](destination)
+    - I would like to buy [milk](items) and [chocolate](items)
+    - Add [flour](items) and [eggs] (items) to my shopping list
+    - Add [tomatoes](items) and [ham](items) to my shopping list
+    - Add [milk](items) and [chocolate](items) to my shopping list
+    - I would like to get [tomatoes](items) and [ham](items)
+    - I would like to get [milk](items) and [chocolate](items)
+    - I would like to get [flour](items) and [eggs](items)
+    - I need [milk](items)
+    - I need [eggs](items)
+    - I need [flour](items)
+    - write [bananas](items) to my grocery shopping list
+    - write [juice](items) and [watermelon](items) to my grocery shopping list
 
-- intent: buy_groceries
+- intent: grocery_check
   examples: |
-    - I would like to buy [milk] (items), [cookies] (items) and [chocolate] (items)
-    - Add [flour] (items) and [eggs] (items) to my shopping list
-    - I would like to get [tomatoes] (items) and [ham](items)
+    - What is in my grocery list
+    - Grocery Check
+    - check my grocery list
+    - what to do I need to buy
+    - which groceries am I out of?
 
-
-  # example questions when location is given by the user
 - intent: weather_in_city
   examples: |
-    - what is the [weather](wx_type) [tomorrow](forecast_period) in [Budapest](city)?
-    - how's the [weather](wx_type) [now](forecast_period) in [Debrecen](city)?
-    - Tell me the [weather](wx_type) [today](forecast_period) in [Budapest](city)
-    - [weather](wx_type) in [Budapest](city) [tomorrow](forecast_period)
-    - is it [windy](wx_type) in [Budapest](city) [today](forecast_period)
-    - [raining](wx_type) [tomorrow](forecast_period) in [Szeged](city)
-    - is it [cloudy](wx_type) in [Debrecen](city) [tomorrow](forecast_period)
-    - [today](forecast_period) [rain](wx_type) in [Budapest](city)
-    - [raining](wx_type) in [Debrecen](city) [tomorrow](forecast_period)
-    - [temperature](wx_type) [current](forecast_period) in [Budapest](city)
-    - what is the [temperature](wx_type) in [Debrecen](city) [today](forecast_period)
-    - is it going to be [temperature](wx_type) in [Debrecen](city) [today](forecast_period)
-    - [wind](wx_type) in [Debrecen](city) [today](forecast_period)
-    - is it going to [rain](wx_type) in [Szeged](city) [tomorrow](forecast_period)
-    - [humid](wx_type) [today](forecast_period) in [Szeged](city)
-    - is it [windy](wx_type) [today](forecast_period) in [Budapest](city)
-    - is it going to [rain](wx_type) in [Debrecen](city) [tomorrow](forecast_period)
-    - is it going to be [cloudy](wx_type) in [Debrecen](city) [tomorrow](forecast_period)
-    - air [pressure](wx_type) in [Debrecen](city) [current](forecast_period)
-    - [pressure](wx_type) in [Debrecen](city) [today](forecast_period)
-    - what is the [pressure](wx_type) in [Budapest](city) [tomorrow](forecast_period)
-    - [humidity](wx_type) in [Debrecen](city) [tomorrow](forecast_period)
-    - [uvi](wx_type) in [Budapest](city) [today](forecast_period)
-    - what is the [humidity](wx_type) in [Budapest](city) [tomorrow](forecast_period)
-    - [rain](wx_type) [Szeged](city) [tomorrow](forecast_period)
-    - [Budapest](city) [current](forecast_period)
-    - [Szeged](city) [tomorrow](forecast_period)
-    - [Budapest](city)
-    - [Szeged](city)
-    - what is the [weather](wx_type) in [Budapest](city)?
-    - how's the [UV index](wx_type) in [Debrecen](city)?
-    - Tell me the [weather](wx_type) in [Budapest](city)
-    - [weather](wx_type) in [Budapest](city)
-    - [weather](wx_type) in [Szeged](city)
-    - is it [windy](wx_type) in [Budapest](city)
-    - [raining](wx_type) in [Szeged](city)
-    - is it [cloudy](wx_type) in [Debrecen](city)
-    - [rain](wx_type) in [Budapest](city)
-    - [raining](wx_type) in [Debrecen](city)
-    - [temperature](wx_type) in [Budapest](city)
-    - what is the [temperature](wx_type) in [Debrecen](city)
-    - is it going to be [cloudy](wx_type) in [Debrecen](city)
-    - is it going to [UV index](wx_type) in [Szeged](city)
-    - what is the [weather](wx_type) for [Szeged](city)
-    - what is the [pressure](wx_type) in [Budapest](city)
-    - air [pressure](wx_type) in [Budapest](city)
-    - what is the [humidity](wx_type) in [Budapest](city)
-    - air [humidity](wx_type) in [Budapest](city)
-    - [uvi](wx_type) [Budapest](city)
-    - [weather](wx_type) [Szeged](city)
-    - how about [Szeged](city)
-    - [humidity] (wx_type) in [Debrecen](city)
+    - what is the weather in [Budapest](city)?
+    - how is the weather in [Budapest](city)?
+    - what is the weather in [London](city)?
+    - how is the weather in [London](city)?
 
+- intent: weather
+  examples: |
+    - what is the weather
+    - how is the weather
+    - tell me how is the weather
+    - weather
+    - how is the temprature is like
+    - temprature
+
+- intent: remove_grocery
+  examples: |
+    - remove [milk](items) and [ham](items) from my grocery list
+    - remove [chocolate](items) and [eggs](items) from my grocery list
+    - remove [flour](items) from my grocery list
+    - I don't need [milk](items) and [flour](items) anymore
+    - I don't need [chocolate](items) and [eggs](items) anymore
+    - I have already bought [tomatoes](items)
+    - I have already bought [tomatoes](items) and [eggs](items)
 
   # questions about what can I do
 - intent: capabilities
@@ -188,83 +165,11 @@ nlu:
     - help
     - can you help me
 
-# synonym defnitions to limit variations and to help NLU
-- synonym: current
-  examples: |
-    - currently
-    - now
-    - current
-- synonym: today
-  examples: |
-    - later
-    - today
-    - later today
-    - going to
-- synonym: tomorrow
-  examples: |
-    - tomorrow
-- synonym: uvi
-  examples: |
-    - uvi
-    - UV
-    - UV index
-
-- synonym: cloud_conditions
-  examples: |
-    - raining
-    - wet
-    - rain
-    - conditions
-    - condition
-    - clouds
-    - snow
-    - snowing
-    - sunny
-    - pissing
-    - hosing
-    - pooring
-    - cloudy
-    - rainy
-    - shining
-    - sun
-    - rainfall
-    - snowfall
-- synonym: temperature
-  examples: |
-    - hot
-    - cold
-    - chilly
-    - heat
-    - temp
-    - temperature
-- synonym: wind
-  examples: |
-    - windy
-    - breeze
-    - breezy
-    - gust
-    - gusty
-    - gale
-    - wind
-
 - synonym: weather
   examples: |
     - weather
     - wx
     - forecast
-- synonym: humid
-  examples: |
-    - humidity
-    - humid
-- synonym: Budapest
-  examples: |
-    - Budapest
-    - budapest
-- synonym: Debrecen
-  examples: |
-    - Debrecen
-    - debrecen
-- synonym: Szeged
-  examples: |
-    - Szeged
-    - szeged
+    - temprature
+
+
