@@ -1,12 +1,11 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { SendOutlined } from '@ant-design/icons'
-import { Button, Col, Input, Row } from 'antd'
+import { Button, Col, Input, Row, Spin } from 'antd'
 import classNames from 'classnames'
 
 import Microphone from '../../../components/Microphone/Microphone'
 import useRasa from '../useRasa'
 import styles from './RasaInput.module.scss'
-import { spawn } from 'child_process'
 
 interface IRasaInputProps {
     icon?: React.ReactElement;
@@ -18,7 +17,7 @@ interface IRasaInputProps {
 const RasaInput: React.FC<IRasaInputProps> = ({ icon, inline, children, ...rest }) => {
     const [dialogOpen, setDialogOpen] = useState<boolean>(false)
     const [key, setKey] = useState<number>(Math.random())
-    const { submitCommand, speak, endSpeak, textToSend, setTextToSend, listening } = useRasa()
+    const { submitCommand, speak, endSpeak, textToSend, setTextToSend, listening, sendOnSpeechEnd } = useRasa()
 
     const handleMicClick = useCallback(() => {
         if (!inline) {
@@ -28,18 +27,30 @@ const RasaInput: React.FC<IRasaInputProps> = ({ icon, inline, children, ...rest 
         !listening ? speak() : endSpeak()
     }, [inline, speak, endSpeak, listening])
 
-    const send = useCallback((e: any) => {
-        e.preventDefault()
+    const send = useCallback(() => {
         submitCommand(textToSend)
         if (!inline) {
             setDialogOpen(false)
         }
     }, [submitCommand, textToSend, inline])
 
+    const handleFinish = useCallback((e: any) => {
+        e.preventDefault()
+        send()
+    }, [send])
+
+    useEffect(() => {
+        console.log(`listening: ${listening}`);
+        if (sendOnSpeechEnd && !listening) {
+            send()
+        }
+    }, [listening, sendOnSpeechEnd, send, textToSend]);
+
     return (
         <div className={styles.container} {...rest}>
             {/* {children} */}
             <Row align="top" justify="center">
+                {/* {listening && <Col><Spin className={styles.listenIndicator} /></Col>} */}
                 <Col>
                     <div className={styles.iconContainer}>
                         <div className={styles.icon} onClick={handleMicClick}>
@@ -51,12 +62,12 @@ const RasaInput: React.FC<IRasaInputProps> = ({ icon, inline, children, ...rest 
                     <div key={key} className={classNames(styles.inputContainer, { [styles.visible]: inline || dialogOpen, [styles.inline]: inline, [styles.hover]: !inline })}>
                         <Row justify="space-between">
                             <Col span={20}>
-                                <Input className={styles.inputfield} onPressEnter={send} value={textToSend} onChange={(e: any) => setTextToSend(e.target.value)} />
+                                <Input className={styles.inputfield} onPressEnter={handleFinish} value={textToSend} onChange={(e: any) => setTextToSend(e.target.value)} />
                             </Col>
                             <Col span={4}>
                                 <Row justify="end">
                                     <Col>
-                                        <Button className={styles.sendIcon} onClick={send} htmlType="submit" icon={<SendOutlined />} />
+                                        <Button className={styles.sendIcon} onClick={handleFinish} htmlType="submit" icon={<SendOutlined />} />
                                     </Col>
                                 </Row>
                             </Col>
@@ -64,7 +75,6 @@ const RasaInput: React.FC<IRasaInputProps> = ({ icon, inline, children, ...rest 
                     </div>
                 </Col>
             </Row>
-            {listening && <span>Speak slowly!</span>}
         </div>
     )
 }

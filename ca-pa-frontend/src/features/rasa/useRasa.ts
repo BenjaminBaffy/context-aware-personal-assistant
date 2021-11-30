@@ -9,21 +9,11 @@ import { rasaActions } from "./rasaSlice";
 const useRasa = () => {
     const dispatch = useDispatch();
     const { user } = useSelector((state: RootState) => state.auth);
-    const { response, lastCommand, loading, error, isMock } = useSelector(
+    const { response, lastCommand, sendOnSpeechEnd, loading, error, isMock } = useSelector(
         (state: RootState) => state.rasa
     );
-    const [textToSend, setTextToSend] = useState<string>("");
-
     const { transcript, listening, resetTranscript } = useSpeechRecognition();
-
-    useEffect(() => {
-        console.log(`transcript: ${transcript}`);
-        setTextToSend(transcript);
-    }, [transcript]);
-
-    useEffect(() => {
-        console.log(`listening: ${listening}`);
-    }, [listening]);
+    const [textToSend, setTextToSend] = useState<string>("");
 
     const speak = useCallback(() => {
         // turn on audio input from user
@@ -58,6 +48,11 @@ const useRasa = () => {
         [dispatch, textToSend, loading, user]
     );
 
+    useEffect(() => {
+        console.log(`transcript: ${transcript}`);
+        setTextToSend(transcript);
+    }, [transcript]);
+
     return {
         speak,
         endSpeak,
@@ -67,6 +62,7 @@ const useRasa = () => {
         textToSend,
         transcript,
         listening,
+        sendOnSpeechEnd,
         response,
         lastCommand,
         loading,

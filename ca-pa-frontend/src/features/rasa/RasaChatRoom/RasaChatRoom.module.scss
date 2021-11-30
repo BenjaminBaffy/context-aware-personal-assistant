@@ -30,6 +30,10 @@
     margin-left: 5px;
 }
 
+.toggles > * {
+    margin-right: 1rem;
+}
+
 @media only screen and (max-width: 600px) {
     .container {
         margin: 1rem;

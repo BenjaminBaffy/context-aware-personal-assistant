@@ -8,6 +8,8 @@ interface RasaState {
     response: Message;
     lastCommand: Message;
 
+    sendOnSpeechEnd: boolean;
+
     isMock: boolean;
     loading: boolean;
     error: string;
@@ -21,7 +23,9 @@ const initialState: RasaState = {
         content: ''
     },
 
-    isMock: true,
+    sendOnSpeechEnd: true,
+    isMock: false,
+
     loading: false,
     error: ""
 };
@@ -35,6 +39,9 @@ export const rasaSlice = createSlice({
         },
         setLastCommand: (state, action: PayloadAction<Message>) => {
             state.lastCommand = action.payload
+        },
+        setSendOnSpeechEnd: (state, action: PayloadAction<boolean>) => {
+            state.sendOnSpeechEnd = action.payload
         },
         setLoading: (state, action: PayloadAction<boolean>) => {
             state.loading = action.payload
@@ -52,6 +59,7 @@ export const rasaSlice = createSlice({
 const {
     setResponse,
     setLastCommand,
+    setSendOnSpeechEnd,
     setLoading,
     setError,
     setIsMock,
@@ -94,6 +102,7 @@ const send = (message: string, mock: boolean = false): AppThunk => async (dispat
 export const rasaActions = {
     setResponse,
     setLastCommand,
+    setSendOnSpeechEnd,
     setLoading,
     setError,
     setIsMock,

@@ -17,7 +17,7 @@ const RasaChatRoom = () => {
     const dispatch = useDispatch()
     const { user } = useSelector((state: RootState) => state.auth)
     const [conversation, setConversation] = useLocalStorage(LocalStorageKey.Conversation, [], true)
-    const { response, lastCommand, loading, error, isMock } = useRasa()
+    const { response, lastCommand, loading, error, isMock, sendOnSpeechEnd } = useRasa()
 
     const lastMessageRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
@@ -59,7 +59,14 @@ const RasaChatRoom = () => {
         <div className={styles.container}>
             <Row justify="space-between">
                 <Col>
-                    <Switch checkedChildren="real" unCheckedChildren="mock" onChange={() => dispatch(rasaActions.setIsMock(!isMock))} />
+                    <Row className={styles.toggles}>
+                        <Col>
+                            <Switch defaultChecked checkedChildren="real api" unCheckedChildren="mock response" onChange={() => dispatch(rasaActions.setIsMock(!isMock))} />
+                        </Col>
+                        <Col>
+                            <Switch defaultChecked checkedChildren="send on silence" unCheckedChildren="send manually" onChange={() => dispatch(rasaActions.setSendOnSpeechEnd(!sendOnSpeechEnd))} />
+                        </Col>
+                    </Row>
                 </Col>
                 <Col>
                     <Button className={styles.clearButton} icon={<CloseOutlined />} onClick={() => setConversation([])} >Clear</Button>
