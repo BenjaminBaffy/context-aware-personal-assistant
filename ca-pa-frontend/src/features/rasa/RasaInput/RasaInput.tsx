@@ -28,11 +28,11 @@ const RasaInput: React.FC<IRasaInputProps> = ({ icon, inline, children, ...rest 
     }, [inline, speak, endSpeak, listening])
 
     const send = useCallback(() => {
-        submitCommand(textToSend)
+        submitCommand()
         if (!inline) {
             setDialogOpen(false)
         }
-    }, [submitCommand, textToSend, inline])
+    }, [submitCommand, inline])
 
     const handleFinish = useCallback((e: any) => {
         e.preventDefault()
@@ -44,7 +44,8 @@ const RasaInput: React.FC<IRasaInputProps> = ({ icon, inline, children, ...rest 
         if (sendOnSpeechEnd && !listening) {
             send()
         }
-    }, [listening, sendOnSpeechEnd, send, textToSend]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [listening]);
 
     return (
         <div className={styles.container} {...rest}>

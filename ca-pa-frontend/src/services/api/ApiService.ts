@@ -10,24 +10,23 @@ const axiosInstance: AxiosInstance = axios.create({
   paramsSerializer: (params) => {
     return qs.stringify(params, { indices: false, skipNulls: true }).replaceAll('%5B', '.').replaceAll('%5D', '');
   },
-  withCredentials: false, // maybe remove after backend integration
 });
 
 export const rasaClient = new RasaClient(undefined, axiosInstance)
 export const authenticationClient = new AuthenticationClient(undefined, axiosInstance);
 
 export const setAccessToken = (token: string) => {
-  axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 }
 
 // Add a request interceptor
 axiosInstance.interceptors.request.use(
   function (config) {
     // Do something before request is sent
-    console.log(config);
+    console.log(config.headers);
 
+    // still need this, because common headers are not set somehow
     const accessToken = localStorage.get(LocalStorageKey.AccessToken);
-
     if (accessToken) {
       if (!config.headers) {
         config.headers = {};
@@ -110,15 +109,6 @@ async function send({
   if (method === 'GET') {
     config.params = params;
     config.data = null;
-  }
-
-  const accessToken = localStorage.get(LocalStorageKey.AccessToken);
-
-  if (accessToken) {
-    if (!config.headers) {
-      config.headers = {};
-    }
-    config.headers.Authorization = `Bearer ${accessToken}`;
   }
 
   return axiosInstance

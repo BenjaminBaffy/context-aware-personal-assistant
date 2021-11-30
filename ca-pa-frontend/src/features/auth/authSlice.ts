@@ -6,9 +6,9 @@ import {
 } from "../../services/persistance/localStorage";
 import AuthService from '../../services/api/AuthService';
 import { AppThunk } from '../../store/store'
+import { setAccessToken } from "../../services/api/ApiService"
 
 interface AuthState {
-    accessToken: string | undefined;
     user: User;
     loggedIn: boolean;
     loading: boolean;
@@ -16,10 +16,8 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-    accessToken: undefined,
-
     user: {
-        name: null,
+        name: undefined,
         userId: undefined,
         roles: [],
     },
@@ -49,9 +47,6 @@ export const authSlice = createSlice({
         setUser: (state, action) => {
             state.user = action.payload;
         },
-        setAccessToken: (state, action: PayloadAction<string | undefined>) => {
-            state.accessToken = action.payload;
-        },
         resetUser: () => {
             return initialState;
         },
@@ -64,7 +59,6 @@ const {
     setLoggedIn,
     loginSuccess,
     setUser,
-    setAccessToken,
     resetUser,
 } = authSlice.actions;
 
@@ -79,30 +73,14 @@ const login = (credentials: { username: string; password: string }): AppThunk =>
 
         const user = {
             name: response.fullName,
-            userId: '',
-            roles: []
+            userId: (response as any).userId || '',
+            roles: (response as any).roles || []
         }
 
         dispatch(setUser(user))
-        dispatch(setAccessToken(response.accessToken))
         localStorage.set(LocalStorageKey.UserDetails, user)
         localStorage.set(LocalStorageKey.AccessToken, response.accessToken)
-
-        // verify user + passwd
-        // const responseMock = {
-        //     ...user,
-        //     userId: "45faf31-53eg3h2-2eq3h53",
-        //     name: username,
-        // };
-
-        // const apiCallMock = async () => {
-        //     return await delay(responseMock, 1200);
-        // };
-
-        // const response = await apiCallMock();
-
-        // dispatch(setUser(response));
-        // localStorage.set(LocalStorageKey.UserDetails, response);
+        setAccessToken(response.accessToken!)
 
         dispatch(loginSuccess());
     } catch (e: any) {
@@ -118,12 +96,11 @@ const logout = (): AppThunk => async (dispatch, getState) => {
         // ...
 
         // clear localStorage
-        localStorage.set(LocalStorageKey.UserDetails, initialState.user)
-        localStorage.set(LocalStorageKey.Conversation, []);
+        localStorage.remove(LocalStorageKey.UserDetails)
+        localStorage.remove(LocalStorageKey.Conversation)
         localStorage.remove(LocalStorageKey.AccessToken)
 
         dispatch(resetUser())
-        dispatch(setAccessToken(undefined))
         dispatch(setLoggedIn(false))
     } catch(e: any) {
         dispatch(setError(e.toString()))

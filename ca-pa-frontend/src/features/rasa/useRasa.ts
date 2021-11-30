@@ -32,26 +32,26 @@ const useRasa = () => {
     }, []);
 
     const submitCommand = useCallback(
-        (message: string) => {
-            if (textToSend === "" || loading) return;
+        (message?: string) => {
+            const msg = message || textToSend
+            if (msg === "" || loading) return;
             dispatch(
                 rasaActions.setLastCommand({
                     user,
-                    content: message,
+                    content: msg,
                     uuid: `${Math.random()}`,
                 })
             );
-            dispatch(rasaActions.send(message));
-
-            setTextToSend("");
+            dispatch(rasaActions.send(msg))
+            setTextToSend("")
         },
         [dispatch, textToSend, loading, user]
     );
 
     useEffect(() => {
-        console.log(`transcript: ${transcript}`);
-        setTextToSend(transcript);
-    }, [transcript]);
+        console.log(`transcript: ${transcript}`)
+        setTextToSend(transcript)
+    }, [transcript])
 
     return {
         speak,

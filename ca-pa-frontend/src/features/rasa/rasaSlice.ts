@@ -65,8 +65,9 @@ const {
     setIsMock,
 } = rasaSlice.actions;
 
-const send = (message: string, mock: boolean = false): AppThunk => async (dispatch, getState) => {
+const send = (message: string): AppThunk => async (dispatch, getState) => {
     const { isMock } = getState().rasa
+    const { user } = getState().auth
     dispatch(setError(''))
 
     try {
@@ -78,9 +79,9 @@ const send = (message: string, mock: boolean = false): AppThunk => async (dispat
             const responseMock: any = {
                 message: "Hi! How are you?",
             }
-            response = await delay(responseMock, 1200)// RasaService.send(message)
+            response = await delay(responseMock, 1200)
         } else {
-            response = await RasaService.send(message)
+            response = await RasaService.send({ message, sender: user.name! }) // TODO maybe sender should be userId
         }
 
         const payload: Message = {

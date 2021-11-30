@@ -1,5 +1,5 @@
 export default interface User {
-    name: string | null;
-    userId?: string | null;
+    name?: string;
+    userId?: string;
     roles?: [];
 }
