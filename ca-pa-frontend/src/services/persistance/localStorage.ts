@@ -1,5 +1,6 @@
 export enum LocalStorageKey {
     UserDetails = "ca-pa-userDetails",
+    Conversation = 'conversation',
     AccessToken = "accessToken"
 }
 

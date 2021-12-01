@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../store/store'
 import { rasaActions } from '../../rasa/rasaSlice'
+import useRasa from '../../rasa/useRasa'
 import { demoActions } from '../demoSlice'
 
 import styles from './DemoComponent.module.scss'
@@ -46,7 +47,9 @@ const Topic = ({ title, description, linkTo, children }: TopicProps) => (
 const DemoComponent = () => {
     const dispatch = useDispatch()
     const { demoStateField } = useSelector((state: RootState) => state.demo)
-    const { response } = useSelector((state: RootState) => state.rasa)
+
+
+    const { response, submitCommand } = useRasa()
 
     const [inputValue, setInputValue] = useState<string>('')
     const [botTextValue, setBotTextValue] = useState<string>('')
@@ -74,7 +77,7 @@ const DemoComponent = () => {
     const handleBotFormSubmit = (e: any) => {
         e.preventDefault()
         const message = e.target.botText.value
-        dispatch(rasaActions.send(message))
+        submitCommand(message)
     }
 
     useEffect(() => {
