@@ -46,7 +46,7 @@ namespace Assistant.Application.Services
                 return new BotResponseViewModel
                 {
                     Recipient = botResponse.Recipient,
-                    Message = botResponse == null ? botResponse.Message : "[EMPTY MESSAGE]",
+                    Message = botResponse != null ? botResponse.Message : "[EMPTY MESSAGE]",
                 };
             }
 
