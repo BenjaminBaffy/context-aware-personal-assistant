@@ -6,8 +6,9 @@ from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from src.wx import wx_city
+from rasa_sdk.events import SlotSet
 
-GROCERY_LIST = []
+# GROCERY_LIST = []
 
 class Weather(Action):
 
@@ -45,16 +46,25 @@ class GroceryAddDisplay(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
         groceries = tracker.get_slot('items')
-        # if groceries:
-        GROCERY_LIST.extend(groceries)
+        
+        full_grocery_list = tracker.get_slot('full_grocery_list')
+
+        if full_grocery_list:
+            if len(full_grocery_list) > 0:
+                full_grocery_list.extend(groceries)
+                print(full_grocery_list)
+            else:
+                full_grocery_list = groceries
+
+        else: 
+            full_grocery_list = groceries
     
-        groceries_str = '\n'.join(GROCERY_LIST)
+        
+        groceries_str = '\n'.join(full_grocery_list)
         response = f"Items in your grocery list: \n{groceries_str}"
         
-        # else: 
-        #     response = "Currently your grocery list is empty. \nAdd something"
+        return [SlotSet("full_grocery_list", full_grocery_list), dispatcher.utter_message(response)]
 
-        return dispatcher.utter_message(response)
 
 
 class GroceryDisplay(Action):
@@ -66,13 +76,16 @@ class GroceryDisplay(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        if GROCERY_LIST:      
-            groceries_str = '\n'.join(GROCERY_LIST)
+        full_grocery_list = tracker.get_slot('full_grocery_list')
+
+        if full_grocery_list:      
+            groceries_str = '\n'.join(full_grocery_list)
             response = f"Items in your grocery list: \n{groceries_str}"
         else: 
             response = "Currently your grocery list is empty. \nAdd something..."
 
-        return dispatcher.utter_message(response)
+        return [SlotSet("full_grocery_list", full_grocery_list), dispatcher.utter_message(response)]
+
 
 
 class GroceryRemove(Action):
@@ -86,15 +99,21 @@ class GroceryRemove(Action):
         
         groceries = tracker.get_slot('items')
 
-        for element in GROCERY_LIST:
-            if element in groceries:
-                GROCERY_LIST.remove(element)
+        full_grocery_list = tracker.get_slot('full_grocery_list')
 
-        if GROCERY_LIST:
-            groceries_str = '\n'.join(GROCERY_LIST)
+        if full_grocery_list:
+            for element in full_grocery_list:
+                if element in groceries:
+                    full_grocery_list.remove(element)
+
+        SlotSet("full_grocery_list", full_grocery_list)
+
+        if full_grocery_list:
+            groceries_str = '\n'.join(full_grocery_list)
             response = f"Items in your grocery list: \n{groceries_str}"
         
         else: 
-            response = "Currently your grocery list is empty. \nAdd something"
+            response = "Currently your grocery list is empty. \nAdd something..."
 
-        return dispatcher.utter_message(response)
+        return [SlotSet("full_grocery_list", full_grocery_list), dispatcher.utter_message(response)]
+

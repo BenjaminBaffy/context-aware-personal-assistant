@@ -25,9 +25,6 @@ entities:
 
 
 slots: 
-  destination:
-    type: text
-    influence_conversation: true
   items: 
     type: list
   name:
@@ -35,6 +32,8 @@ slots:
   city:
     type: text
     influence_conversation: true
+  full_grocery_list:
+    type: list
 
 
 responses:
@@ -47,9 +46,6 @@ responses:
   - text: "Hey"
   - text: "Hello"
   - text: "Hi! \nHow can I help?"
-
-  utter_grocery:
-  - text: "Items in your grocery are: {items}"
 
   utter_capabilities:
   - text: I can tell the current weather and help you to keep track of your grocery list.
