@@ -11,9 +11,4 @@ namespace Assistant.Domain.ViewModels.Admin
         public string Password { get; set; }
         public string Salt { get; set; }
     }
-
-    public class UserContextViewModel
-    {
-        // TODO
-    }
 }
