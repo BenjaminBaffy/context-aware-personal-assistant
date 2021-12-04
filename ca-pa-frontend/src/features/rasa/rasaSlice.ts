@@ -5,8 +5,8 @@ import { AppThunk } from '../../store/store'
 import delay from '../../utils/delay'
 
 interface RasaState {
-    response: Message;
-    lastCommand: Message;
+    response?: Message;
+    lastCommand?: Message;
 
     sendOnSpeechEnd: boolean;
 
@@ -34,10 +34,10 @@ export const rasaSlice = createSlice({
     name: 'rasa',
     initialState,
     reducers: {
-        setResponse: (state, action: PayloadAction<Message>) => {
+        setResponse: (state, action: PayloadAction<Message | undefined>) => {
             state.response = action.payload
         },
-        setLastCommand: (state, action: PayloadAction<Message>) => {
+        setLastCommand: (state, action: PayloadAction<Message | undefined>) => {
             state.lastCommand = action.payload
         },
         setSendOnSpeechEnd: (state, action: PayloadAction<boolean>) => {

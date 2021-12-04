@@ -1,11 +1,11 @@
 import { CloseOutlined } from '@ant-design/icons'
 import { Button, Col, Row, Spin, Switch } from 'antd'
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import ErrorDisplay from '../../../components/ErrorDisplay/ErrorDisplay'
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
 import Message from '../../../models/Message'
-import { LocalStorageKey } from '../../../services/persistance/localStorage'
+import { localStorage, LocalStorageKey } from '../../../services/persistance/localStorage'
 import { RootState } from '../../../store/store'
 import RasaInput from '../RasaInput/RasaInput'
 import { rasaActions } from '../rasaSlice'
@@ -21,12 +21,11 @@ const RasaChatRoom = () => {
 
     const lastMessageRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
-    const updateConversation = useCallback((message: Message) => {
-        if (message.content) {
-            setConversation([...conversation, message])
+    const updateConversation = useCallback((message?: Message) => {
+        if (message?.content) {
+            setConversation((prev: any) => [...prev, message])
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [conversation])
+    }, [setConversation])
 
     useEffect(() => {
         lastMessageRef.current.scrollIntoView({ behavior: "smooth" })
@@ -34,11 +33,17 @@ const RasaChatRoom = () => {
 
     useEffect(() => {
         updateConversation(response)
+        return () => {
+            dispatch(rasaActions.setResponse(undefined))
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [response])
 
     useEffect(() => {
         updateConversation(lastCommand)
+        return () => {
+            dispatch(rasaActions.setLastCommand(undefined))
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lastCommand])
 
@@ -69,7 +74,10 @@ const RasaChatRoom = () => {
                     </Row>
                 </Col>
                 <Col>
-                    <Button className={styles.clearButton} icon={<CloseOutlined />} onClick={() => setConversation([])} >Clear</Button>
+                    <Button className={styles.clearButton} icon={<CloseOutlined />} onClick={() => {
+                        localStorage.remove(LocalStorageKey.Conversation)
+                        setConversation([])
+                    }}>Clear</Button>
                 </Col>
             </Row>
             <Row>
