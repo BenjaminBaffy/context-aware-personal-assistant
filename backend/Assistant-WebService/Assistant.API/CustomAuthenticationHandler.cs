@@ -28,6 +28,7 @@ namespace Assistant.API
             _tokenBuilder = tokenBuilder;
         }
 
+        #pragma warning disable 1998 // We know what :)
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
             if (!AuthenticationHeaderValue.TryParse(Request.Headers["Authorization"], out var authHeader))
@@ -54,11 +55,7 @@ namespace Assistant.API
 
             return AuthenticateResult.Success(ticket);
         }
-    }
+        #pragma warning restore 1998
 
-    public interface ICurrentUserAccessor
-    {
-        string UserId { get; }
-        string FullName { get; }
     }
 }

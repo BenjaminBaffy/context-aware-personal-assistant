@@ -3,7 +3,7 @@ using Assistant.Application.Interfaces.Authentication;
 using Assistant.Application.Services;
 using Assistant.Application.Services.Authentication;
 using Assistant.Domain.Configuration;
-using Assistant.Domain.Configuration.Options;
+using Assistant.Domain.DatabaseModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 
@@ -59,7 +58,8 @@ namespace Assistant.API
             // });
 
             services.AddSingleton<FirestoreDbAccessor>();
-            services.AddScoped(typeof(IDatabaseService<>), typeof(DatabaseService<>));
+            services.AddScoped(typeof(IDatabaseService<User>), typeof(DatabaseService<User>));
+            services.AddScoped(typeof(IDatabaseService<UserSlot>), typeof(DatabaseService<UserSlot>));
 
             services.AddOptions();
             services.Configure<ApplicationConfiguration>(Configuration.GetSection(nameof(ApplicationConfiguration)));
@@ -74,6 +74,8 @@ namespace Assistant.API
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ICurrentUserAccessor, CurrentUserAccessor>();
+
+            services.AddSingleton<ISlotDifferenceCalculator, SlotDifferenceCalculator>();
 
             services.AddAuthentication(o =>
                 {

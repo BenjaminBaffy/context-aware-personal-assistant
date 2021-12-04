@@ -8,7 +8,7 @@
             "name": ".NET Core Launch CAPA WS-Backend",
             "type": "coreclr",
             "request": "launch",
-            // "preLaunchTask": "build",
+            "preLaunchTask": "build",
             "program": "${workspaceFolder}/backend/Assistant-WebService/Assistant.API/bin/Debug/net5.0/Assistant.API.dll",
             "args": [],
             "cwd": "${workspaceFolder}/backend/Assistant-WebService/Assistant.API/",
