@@ -1,0 +1,38 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches-ignore:
+      - master
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test-fe:
+    name: Test frontend project
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }} # '14.x'
+
+      - name: Check linter
+        uses: actions/super-linter@v3
+
+      - name: Install dependencies
+        working-directory: ./ca-pa-frontend
+        run: yarn install
+
+      - name: Run build
+        working-directory: ./ca-pa-frontend
+        run: yarn build --if-present
+
+      - name: Run tests
+        working-directory: ./ca-pa-frontend
+        run: yarn test
