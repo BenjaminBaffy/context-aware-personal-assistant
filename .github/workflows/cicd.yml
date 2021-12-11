@@ -11,6 +11,8 @@ jobs:
   test-fe:
     name: Test frontend project
     runs-on: ubuntu-latest
+    env:
+      CI: false
     strategy:
       matrix:
         node-version: [14.x]
